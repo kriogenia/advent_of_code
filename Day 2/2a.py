@@ -25,8 +25,8 @@ commands = { 			# function mapping
 	"down": lambda pos, n : pos.down(n)
 }
 
-for x in f:
-	[ direction, movement ] = x.split(" ")
+for line in f:
+	[ direction, movement ] = line.split(" ")
 	commands[direction](position, int(movement))	# get movement function and apply distance
 
 print(f'The definite position will be {position.x}, {position.y}')

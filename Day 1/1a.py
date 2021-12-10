@@ -7,8 +7,8 @@ f = open(path, "r")
 counter = 0
 prev = sys.maxsize	# Big enough value to ignore first
 
-for x in f:
-	new = int(x)
+for line in f:
+	new = int(line)
 	if (new > prev):
 		counter += 1
 	prev = new

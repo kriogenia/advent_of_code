@@ -12,9 +12,9 @@ line_number = 0
 prev = sys.maxsize		# Big enough value to ignore first
 last = [BIG, BIG, BIG]	# Hold the last three points
 
-for x in f:
+for line in f:
 	# Get new three
-	last[line_number % len(last)] = int(x)
+	last[line_number % len(last)] = int(line)
 	new = sum(last)
 	# Check increment
 	if (new > prev):
