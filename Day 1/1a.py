@@ -13,4 +13,4 @@ for x in f:
 		counter += 1
 	prev = new
 
-print(counter)
+print(f'The number of increments was {counter}')

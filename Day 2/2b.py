@@ -1,15 +1,17 @@
 class Position:		# Class to hold the coordinates and allow lambda usage
-	x = 0
-	y = 0
+	horizontal = 0
+	depth = 0
+	aim = 0
 
 	def forward(self, d: int):
-		self.x += d
+		self.horizontal += d
+		self.depth += self.aim * d
 
 	def up(self, d: int):
-		self.y -= d
+		self.aim -= d
 
 	def down(self, d: int):
-		self.y += d
+		self.aim += d
 
 #####################################
 
@@ -29,5 +31,5 @@ for x in f:
 	[ direction, movement ] = x.split(" ")
 	commands[direction](position, int(movement))	# get movement function and apply distance
 
-print(f'The definite position will be {position.x}, {position.y}')
-print(f'The multiplication result is {position.x * position.y}')
+print(f'The definite position will be {position.horizontal}, {position.depth}')
+print(f'The multiplication result is {position.horizontal * position.depth}')

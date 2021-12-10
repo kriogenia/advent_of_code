@@ -23,4 +23,4 @@ for x in f:
 	prev = new
 	line_number += 1
 
-print(counter)
+print(f'The number of three step increments was {counter}')
