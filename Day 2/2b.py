@@ -33,3 +33,5 @@ for line in f:
 
 print(f'The definite position will be {position.horizontal}, {position.depth}')
 print(f'The multiplication result is {position.horizontal * position.depth}')
+
+f.close()

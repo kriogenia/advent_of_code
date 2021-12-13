@@ -14,3 +14,5 @@ for line in f:
 	prev = new
 
 print(f'The number of increments was {counter}')
+
+f.close()

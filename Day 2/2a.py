@@ -31,3 +31,5 @@ for line in f:
 
 print(f'The definite position will be {position.x}, {position.y}')
 print(f'The multiplication result is {position.x * position.y}')
+
+f.close()

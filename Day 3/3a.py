@@ -24,3 +24,5 @@ epsilon = to_base_10(epsilon)
 print(f'Gamma in base 10 is {gamma}')
 print(f'Epsilon in base 10 is {epsilon}')
 print(f'The power consumption of the submarine is {gamma * epsilon}')
+
+f.close()

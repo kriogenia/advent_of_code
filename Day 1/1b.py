@@ -24,3 +24,5 @@ for line in f:
 	line_number += 1
 
 print(f'The number of three step increments was {counter}')
+
+f.close()

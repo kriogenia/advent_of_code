@@ -1,7 +1,7 @@
 def not_(bit: str):
 	return '0' if bit == '1' else '1'
 
-def filter_bit(lines: list[str], pos: int, use_most_common: bool):
+def filter_bit(lines: "list[str]", pos: int, use_most_common: bool):
 	if len(lines) == 1:			# Bit finding
 		return lines[0]
 
@@ -31,3 +31,5 @@ co2 = to_base_10(co2)
 print(f'Oxygen in base 10 is {oxygen}')
 print(f'CO2 in base 10 is {co2}')
 print(f'The life support of the submarine is {oxygen * co2}')
+
+f.close()
