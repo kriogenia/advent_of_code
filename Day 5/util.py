@@ -10,6 +10,9 @@ def get_range(start: int, end: int):
 	else:	
 		return start, end + 1
 
+def get_direction(start: int, end: int):
+	return -1 if start > end else 1
+
 def add_to_map(spots: dict, *coords: int):
 	key = str(coords)
 	value = spots.get(key)
