@@ -31,5 +31,3 @@ co2 = to_base_10(co2)
 print(f'Oxygen in base 10 is {oxygen}')
 print(f'CO2 in base 10 is {co2}')
 print(f'The life support of the submarine is {oxygen * co2}')
-
-f.close()
