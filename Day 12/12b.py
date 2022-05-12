@@ -20,7 +20,7 @@ class CaveSystem:
 		return self.caves[key]
 
 	def traverse(self):
-		self.caves["start"].travel([], 0)
+		self.caves["start"].travel([], 0, False)
 
 	def small_caves(self):
 		return len(list(filter(lambda c: c.small, self.caves.values())))
@@ -38,21 +38,25 @@ class Cave:
 	def add_path(self, cave):
 		self.paths.append(cave)
 
-	def travel(self, prev, small_traveled):
-		if self.small and contains(prev, self.key):						# revisited small cave
-			return
-		prev.append(self.key)											# add to route
+	def travel(self, prev, small_traveled, small_revisited):
+		if self.small and contains(prev, self.key):							# revisiting small cave
+			if small_revisited or self.key == "start":
+				return
+			else:
+				small_revisited = True
+		prev.append(self.key)												# add to route
 
 		if self.small:
 			small_traveled += 1
 
-		if self.key == "end" and small > 0:								# check end
-			completed_routes.append(prev)								# store valid routes
+		if self.key == "end" and small > 0:									# check end
+			completed_routes.append(prev)									# store valid routes
+			return
 
 		successful_routes = []
 		for destiny in self.paths:
 			#print("pre", self.key, destiny.key, prev)
-			destiny.travel(prev.copy(), small_traveled)		# expand travel
+			destiny.travel(prev.copy(), small_traveled, small_revisited)	# expand travel
 			#print("\tpost", self.key, destiny.key, routes)
 		return len(successful_routes) > 0, successful_routes 
 
