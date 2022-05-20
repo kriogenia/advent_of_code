@@ -1,6 +1,4 @@
-from itertools import count
 import pathlib
-from pydoc import doc
 
 path = pathlib.Path(__file__).parent.resolve().joinpath("input.txt")
 f = open(path, "r")
