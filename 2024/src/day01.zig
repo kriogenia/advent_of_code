@@ -10,10 +10,10 @@ pub fn main() !void {
     defer input[0].deinit();
     defer input[1].deinit();
 
-    const a = try run_a(input);
-    std.debug.print("a: {d}\n", .{a});
-    const b = try run_b(input);
-    std.debug.print("b: {d}\n", .{b});
+    const a = try measureDistance(input);
+    std.debug.print("distance: {d}\n", .{a});
+    const b = try calculateSimilarityScore(input);
+    std.debug.print("similarity: {d}\n", .{b});
 }
 
 test "01" {
@@ -21,11 +21,11 @@ test "01" {
     defer input[0].deinit();
     defer input[1].deinit();
 
-    try expect(try run_a(input) == 11);
-    try expect(try run_b(input) == 31);
+    try expect(try measureDistance(input) == 11);
+    try expect(try calculateSimilarityScore(input) == 31);
 }
 
-pub fn run_a(input: [2]List(i32)) !u32 {
+pub fn measureDistance(input: [2]List(i32)) !u32 {
     for (input) |list| {
         sort(i32, list.items, {}, comptime asc(i32));
     }
@@ -38,7 +38,7 @@ pub fn run_a(input: [2]List(i32)) !u32 {
     return sum;
 }
 
-pub fn run_b(input: [2]List(i32)) !i32 {
+pub fn calculateSimilarityScore(input: [2]List(i32)) !i32 {
     var cache = Map(i32, i32).init(gpa);
 
     var sum: i32 = 0;
