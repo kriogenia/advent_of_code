@@ -1,0 +1,6 @@
+.{
+    .name = "SotoEstevez-2024-AoC",
+    .version = "0.13.0",
+    .dependencies = .{},
+    .paths = .{""},
+}
