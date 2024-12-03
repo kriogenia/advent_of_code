@@ -3,6 +3,19 @@
 Solutions for [Advent of Code 2022](https://adventofcode.com/2022) using [Rust](https://www.rust-lang.org/).
 This repository uses a template of [fspoettel](https://github.com/fspoettel/advent-of-code-rust) to make an extremely comfortable experience. Go give them some star!!
 
+To run a specific solution you only need to have the input in the `inputs` folder
+with the naming `<day>.txt` and run `cargo solve` with the day code. This crate 
+can automatically download the solution if you have `aoc-cli` set-up. For example:
+
+```sh
+cargo download 07
+cargo solve 07
+```
+
+To run all the problems you can use `cargo all` and every test (this one uses the
+examples) with `cargo test`.
+
+
 <!--- advent_readme_stars table --->
 ## 2022 Results
 
@@ -47,7 +60,8 @@ The following times were recorded in my local machine. Parsing time is usually c
 
 Total running time for all days and parts: **49.40ms** (at the moment).
 
-## Some thoughs
+## Afterthoughts
+
 * The template of *fspoettel* is awesome but I tweaked a bit to match my intentions, like parsing the input just once for both parts if it's possible.
 * The ASCII inputs are awesome to work with bytes instead of strings and improve the performance times.
 * `Rc<RefCell<T>>` combo really asks for macros and the use of `type` to stop those painfully long lines.
