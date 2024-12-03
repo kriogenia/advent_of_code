@@ -8,10 +8,48 @@ const BitSet = std.DynamicBitSet;
 const util = @import("util.zig");
 const gpa = util.gpa;
 
-const data = @embedFile("data/day01.txt");
-
 pub fn main() !void {
-    
+    const result = try run("input/day01.txt");
+    std.debug.print("{d}\n", .{result});
+}
+
+test "01-a" {
+    try expect(try run("examples/day01.txt") == 11);
+}
+
+pub fn run(filename: []const u8) !i32 {
+    const file = try util.readInputFile(filename);
+    const input = try parse(file);
+    for (input) |list| {
+        sort(i32, list.items, {}, comptime asc(i32));
+    }
+
+    var sum: i32 = 0;
+    for (input[0].items, input[1].items) |left, right| {
+        const diff = if (left <= right) right - left else left - right;
+        sum += diff;
+    }
+
+    input[0].deinit();
+    input[1].deinit();
+    return sum;
+}
+
+pub fn parse(puzzle: []const u8) ![2]List(i32) {
+    var leftList = List(i32).init(gpa);
+    var rightList = List(i32).init(gpa);
+
+    var it = splitSca(u8, puzzle, '\n');
+    while (it.next()) |line| {
+        if (line.len == 0) break;
+        var parts = splitSeq(u8, line, "   ");
+        const left = try parseInt(i32, parts.next().?, 10);
+        try leftList.append(left);
+        const right = try parseInt(i32, parts.next().?, 10);
+        try rightList.append(right);
+    }
+
+    return .{ leftList, rightList };
 }
 
 // Useful stdlib functions
@@ -40,6 +78,8 @@ const assert = std.debug.assert;
 const sort = std.sort.block;
 const asc = std.sort.asc;
 const desc = std.sort.desc;
+
+const expect = std.testing.expect;
 
 // Generated from template/template.zig.
 // Run `zig build generate` to update.

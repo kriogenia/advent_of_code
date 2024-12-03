@@ -9,7 +9,13 @@ const Str = []const u8;
 var gpa_impl = std.heap.GeneralPurposeAllocator(.{}){};
 pub const gpa = gpa_impl.allocator();
 
-// Add utility functions here
+pub fn readInputFile(filename: []const u8) ![]const u8 {
+    const file = try std.fs.cwd().openFile(filename, .{});
+    defer file.close();
+    const stat = try file.stat();
+    const fileSize = stat.size;
+    return try file.reader().readAllAlloc(gpa, fileSize);
+}
 
 // Useful stdlib functions
 const tokenizeAny = std.mem.tokenizeAny;
