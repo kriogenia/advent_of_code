@@ -9,17 +9,26 @@ const util = @import("util.zig");
 const gpa = util.gpa;
 
 pub fn main() !void {
-    const result = try run("input/day01.txt");
-    std.debug.print("{d}\n", .{result});
+    const input = try parse("input/day01.txt");
+    defer input[0].deinit();
+    defer input[1].deinit();
+
+    const a = try run_a(input);
+    std.debug.print("a: {d}\n", .{a});
+    const b = try run_b(input);
+    std.debug.print("b: {d}\n", .{b});
 }
 
 test "01-a" {
-    try expect(try run("examples/day01.txt") == 11);
+    const input = try parse("examples/day01.txt");
+    defer input[0].deinit();
+    defer input[1].deinit();
+
+    try expect(try run_a(input) == 11);
+    try expect(try run_b(input) == 31);
 }
 
-pub fn run(filename: []const u8) !i32 {
-    const file = try util.readInputFile(filename);
-    const input = try parse(file);
+pub fn run_a(input: [2]List(i32)) !i32 {
     for (input) |list| {
         sort(i32, list.items, {}, comptime asc(i32));
     }
@@ -30,16 +39,31 @@ pub fn run(filename: []const u8) !i32 {
         sum += diff;
     }
 
-    input[0].deinit();
-    input[1].deinit();
     return sum;
 }
 
-pub fn parse(puzzle: []const u8) ![2]List(i32) {
+pub fn run_b(input: [2]List(i32)) !i32 {
+    var cache = Map(i32, i32).init(gpa);
+
+    var sum: i32 = 0;
+    for (input[0].items) |item| {
+        var total = cache.get(item);
+        if (total == null) {
+            const occurrences: i32 = @intCast(count(i32, input[1].items, &[_]i32{item}));
+            _ = try cache.put(item, occurrences);
+            total = occurrences;
+        }
+        sum += item * total.?;
+    }
+
+    return sum;
+}
+
+pub fn parse(puzzle: []const u8) !struct { List(i32), List(i32) } {
     var leftList = List(i32).init(gpa);
     var rightList = List(i32).init(gpa);
 
-    var it = splitSca(u8, puzzle, '\n');
+    var it = splitSca(u8, try util.readInputFile(puzzle), '\n');
     while (it.next()) |line| {
         if (line.len == 0) break;
         var parts = splitSeq(u8, line, "   ");
@@ -60,6 +84,7 @@ const splitAny = std.mem.splitAny;
 const splitSeq = std.mem.splitSequence;
 const splitSca = std.mem.splitScalar;
 const indexOf = std.mem.indexOfScalar;
+const count = std.mem.count;
 const indexOfAny = std.mem.indexOfAny;
 const indexOfStr = std.mem.indexOfPosLinear;
 const lastIndexOf = std.mem.lastIndexOfScalar;
