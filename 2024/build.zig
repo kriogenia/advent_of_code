@@ -9,7 +9,9 @@ const required_zig_version = std.SemanticVersion.parse("0.13.0") catch unreachab
 
 fn linkObject(b: *Build, obj: *CompileStep) void {
     if (should_link_libc) obj.linkLibC();
-    _ = b;
+
+    const mvzr = b.dependency("mvzr", .{}).module("mvzr");
+    obj.root_module.addImport("mvzr", mvzr);
 
     // Add linking for packages or third party libraries here
 }
@@ -51,6 +53,9 @@ pub fn build(b: *Build) void {
             .optimize = mode,
         });
         linkObject(b, exe);
+
+        // const mvzr = b.dependency("mvzr", .{}).module("mvzr");
+        // exe.root_module.addImport("mvzr", mvzr);
 
         const install_cmd = b.addInstallArtifact(exe, .{});
 
@@ -108,6 +113,7 @@ pub fn build(b: *Build) void {
         .target = target,
         .optimize = mode,
     });
+    linkObject(b, all_tests);
     const run_all_tests = b.addRunArtifact(all_tests);
     test_all.dependOn(&run_all_tests.step);
 }

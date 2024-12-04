@@ -1,46 +1,35 @@
 const std = @import("std");
-const Allocator = std.mem.Allocator;
-const List = std.ArrayList;
-const Map = std.AutoHashMap;
-const StrMap = std.StringHashMap;
-const BitSet = std.DynamicBitSet;
-
 const util = @import("util.zig");
 const gpa = util.gpa;
 
-const data = @embedFile("data/day03.txt");
+const r = @import("mvzr");
+
+const regex = r.compile("mul\\x28\\d{1,3},\\d{1,3}\\x29").?; // /mul\(\d{1,3},\d{1,3}\)/
 
 pub fn main() !void {
-    
+    const input = try util.readInputFile("input/day03.txt");
+    print("mult sum: {d}\n", .{try calculateMulSum(input)});
 }
 
-// Useful stdlib functions
-const tokenizeAny = std.mem.tokenizeAny;
-const tokenizeSeq = std.mem.tokenizeSequence;
-const tokenizeSca = std.mem.tokenizeScalar;
-const splitAny = std.mem.splitAny;
-const splitSeq = std.mem.splitSequence;
-const splitSca = std.mem.splitScalar;
-const indexOf = std.mem.indexOfScalar;
-const indexOfAny = std.mem.indexOfAny;
-const indexOfStr = std.mem.indexOfPosLinear;
-const lastIndexOf = std.mem.lastIndexOfScalar;
-const lastIndexOfAny = std.mem.lastIndexOfAny;
-const lastIndexOfStr = std.mem.lastIndexOfLinear;
-const trim = std.mem.trim;
-const sliceMin = std.mem.min;
-const sliceMax = std.mem.max;
+test "03" {
+    const input = try util.readInputFile("examples/day03.txt");
+    try expect(try calculateMulSum(input) == 161);
+}
 
-const parseInt = std.fmt.parseInt;
-const parseFloat = std.fmt.parseFloat;
+pub fn calculateMulSum(memory: []const u8) !i32 {
+    var it = regex.iterator(memory);
+    var sum: i32 = 0;
+    while (it.next()) |match| {
+        // no groups, so let's just split the match
+        var numbers = std.mem.splitScalar(u8, match.slice[4 .. match.slice.len - 1], ',');
+        const left = try parseInt(i32, numbers.next().?, 10);
+        const right = try parseInt(i32, numbers.next().?, 10);
+        sum += left * right;
+    }
 
+    return sum;
+}
+
+const expect = std.testing.expect;
 const print = std.debug.print;
-const assert = std.debug.assert;
-
-const sort = std.sort.block;
-const asc = std.sort.asc;
-const desc = std.sort.desc;
-
-// Generated from template/template.zig.
-// Run `zig build generate` to update.
-// Only unmodified days will be updated.
+const parseInt = std.fmt.parseInt;

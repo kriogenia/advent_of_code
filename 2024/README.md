@@ -21,8 +21,8 @@ zig build day01
 | Day | Part 1 | Part 2 |
 | :---: | :---: | :---: |
 | [Day 1](https://adventofcode.com/2024/day/1) | ⭐ | ⭐ |
-| [Day 2](https://adventofcode.com/2024/day/2) |   |   |
-| [Day 3](https://adventofcode.com/2024/day/3) |   |   |
+| [Day 2](https://adventofcode.com/2024/day/2) | ⭐ | ⭐ |
+| [Day 3](https://adventofcode.com/2024/day/3) | ⭐ |   |
 | [Day 4](https://adventofcode.com/2024/day/4) |   |   |
 | [Day 5](https://adventofcode.com/2024/day/5) |   |   |
 | [Day 6](https://adventofcode.com/2024/day/6) |   |   |
@@ -48,6 +48,8 @@ zig build day01
 
 ## Afterthoughts
 
-- My first contact with Zig has been REALLY rough, specially regarding the
+- **Day 01**: My first contact with Zig has been REALLY rough, specially regarding the
 documentation as I think that it's still lacking a lot. The first problem
 took my hours when it should have been minutes.
+- **Day 02**: I'm starting to get that Zig is all about working with arrays.
+- **Day 03**: Had to add a dependency to use regex. Holy mother of Haruhi, what a painful ride.
