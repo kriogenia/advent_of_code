@@ -9,21 +9,35 @@ const letters = [4]u8{ 'X', 'M', 'A', 'S' };
 
 pub fn main() !void {
     const matrix = try parse("input/day04.txt");
-    std.debug.print("{d}", .{try findXMas(matrix)});
+    std.debug.print("xmas: {d}\n", .{try findXMas(&matrix)});
+    std.debug.print("x-mas: {d}\n", .{try findCrossMas(&matrix)});
 }
 
-test "findXMas" {
+test "04" {
     const matrix = try parse("examples/day04.txt");
-    try expectEq(18, try findXMas(matrix));
+    try expectEq(18, try findXMas(&matrix));
+    try expectEq(9, try findCrossMas(&matrix));
 }
 
-fn findXMas(matrix: Matrix) !u32 {
+fn findXMas(matrix: *const Matrix) !u32 {
     var sum: u32 = 0;
 
     var global: usize = 0;
     while (nextX(matrix.buffer[global..])) |local| {
         global = global + local + 1;
-        sum += try countWords(&matrix, global - 1);
+        sum += try countWords(matrix, global - 1);
+    }
+    return sum;
+}
+
+fn findCrossMas(matrix: *const Matrix) !u32 {
+    var global = matrix.width + 1;
+    const end = matrix.total - matrix.width - 1; // skip edge lines
+
+    var sum: u32 = 0;
+    while (nextA(matrix.buffer[global..end], matrix.width, global)) |local| {
+        global = global + local + 1;
+        sum += if (isCrossMass(matrix, global - 1)) 1 else 0;
     }
     return sum;
 }
@@ -34,6 +48,19 @@ fn countWords(matrix: *const Matrix, index: usize) !u32 {
         count += if (findNext(matrix, 1, index, path)) 1 else 0;
     }
     return count;
+}
+
+const ms: u8 = 'M' + 'S';
+
+fn isCrossMass(matrix: *const Matrix, index: usize) bool {
+    const iindex = @as(isize, @intCast(index));
+
+    const upleft = diagonal(matrix, iindex, Direction.upleft) orelse return false;
+    const upright = diagonal(matrix, iindex, Direction.upright) orelse return false;
+    const downleft = diagonal(matrix, iindex, Direction.downleft) orelse return false;
+    const downright = diagonal(matrix, iindex, Direction.downright) orelse return false;
+
+    return (upleft + downright == ms) and (upright + downleft == ms);
 }
 
 const Direction = enum(u8) {
@@ -62,24 +89,6 @@ fn movement(direction: Direction) isize {
     };
 }
 
-/// /// Returns the valid movements for a given index based on its position on the grid
-/// fn candidatePaths(matrix: *const Matrix, index: usize) ![]Direction {
-///     var paths = List(Direction).init(gpa);
-///     if (@mod(index, matrix.width) > 0) { // not in the left column
-///         try paths.append(Direction.left);
-///         if (index >= matrix.width) try paths.append(Direction.upleft);
-///         if (index < matrix.width * (matrix.height - 1)) try paths.append(Direction.downright);
-///     }
-///     if (@mod(index, matrix.width) < matrix.width - 1) { // not in the right column
-///         try paths.append(Direction.right);
-///         if (index >= matrix.width) try paths.append(Direction.upright);
-///         if (index < matrix.width * (matrix.height - 1)) try paths.append(Direction.upleft);
-///     }
-///     if (index >= matrix.width) try paths.append(Direction.up);
-///     if (index < matrix.width * (matrix.height - 1)) try paths.append(Direction.down);
-///
-///     return paths.toOwnedSlice();
-/// }
 fn findNext(matrix: *const Matrix, letter: usize, current: usize, direction: Direction) bool {
     if (letter >= letters.len) {
         return true;
@@ -95,14 +104,32 @@ fn neighbourIndex(matrix: *const Matrix, current: usize, direction: Direction) ?
     if (@mod(current, matrix.width) == 0 and (@mod(idir, 3) == 1)) return null; // no path left
     if (@mod(current, matrix.width) == (matrix.width - 1) and (@mod(idir, 3) == 0)) return null; // no path right
     if (current < matrix.width and idir >= 7) return null; // no path up
-    if (current >= matrix.width * (matrix.height - 1) and idir <= 3) return null; // no path down
+    if (current >= matrix.total - matrix.width and idir <= 3) return null; // no path down
 
     const inext = @as(isize, @intCast(current)) + movement(direction);
     return @intCast(inext);
 }
 
+fn diagonal(matrix: *const Matrix, origin: isize, direction: Direction) ?u8 {
+    const value = matrix.buffer[@as(usize, @intCast(origin + movement(direction)))];
+    return if (value == 'M' or value == 'S') value else null;
+}
+
 fn nextX(slice: []const u8) ?usize {
     return std.mem.indexOfScalar(u8, slice, 'X');
+}
+
+fn nextA(slice: []const u8, width: usize, offset: usize) ?usize {
+    var global: usize = 0;
+    while (std.mem.indexOfScalar(u8, slice[global..], 'A')) |index| {
+        global += index;
+        const column = @mod(global + offset, width);
+        if (column > 0 and column < width - 1) {
+            return global;
+        }
+        global += 1;
+    }
+    return null;
 }
 
 const Matrix = struct { buffer: []u8, width: usize, height: usize, total: usize };
