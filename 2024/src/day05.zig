@@ -7,22 +7,27 @@ const Map = std.AutoHashMap;
 
 pub fn main() !void {
     const input = try parse("input/day05.txt");
-    std.debug.print("ordered: {d}\n", .{try sumValidUpdateMedian(&input[0], &input[1])});
+    std.debug.print("valid: {d}\ninvalid: {d}\n", try sumUpdateMedian(&input[0], &input[1]));
 }
 
 test "05" {
     const input = try parse("examples/day05.txt");
-    try std.testing.expectEqual(143, try sumValidUpdateMedian(&input[0], &input[1]));
+    const result = try sumUpdateMedian(&input[0], &input[1]);
+    try std.testing.expectEqual(143, result.valid);
+    try std.testing.expectEqual(123, result.invalid);
 }
 
-fn sumValidUpdateMedian(rules: *const Map(u8, List(u8)), updates: *const List([]u8)) !u32 {
-    var sum: u32 = 0;
+fn sumUpdateMedian(rules: *const Map(u8, List(u8)), updates: *const List([]u8)) !struct { valid: u32, invalid: u32 } {
+    var valid: u32 = 0;
+    var invalid: u32 = 0;
     for (updates.items) |update| {
         if (try validateUpdate(rules, update)) {
-            sum += update[update.len / 2];
+            valid += update[update.len / 2];
+        } else {
+            invalid += (try orderUpdate(rules, update))[update.len / 2];
         }
     }
-    return sum;
+    return .{ .valid = valid, .invalid = invalid };
 }
 
 fn validateUpdate(rules: *const Map(u8, List(u8)), update: []u8) !bool {
@@ -37,6 +42,20 @@ fn validateUpdate(rules: *const Map(u8, List(u8)), update: []u8) !bool {
         }
     }
     return true;
+}
+
+fn orderUpdate(rules: *const Map(u8, List(u8)), update: []u8) ![]u8 {
+    var slice = update;
+    var i: usize = 1;
+    while (i < slice.len) : (i += 1) {
+        const followers = rules.*.get(slice[i]) orelse continue;
+        for (followers.items) |follower| {
+            const wrong = std.mem.indexOfScalar(u8, slice[0..i], follower) orelse continue;
+            std.mem.swap(u8, &slice[wrong], &slice[i]);
+            i = wrong;
+        }
+    }
+    return slice;
 }
 
 fn parse(filename: []const u8) !struct { Map(u8, List(u8)), List([]u8) } {
