@@ -9,37 +9,58 @@ pub fn main() !void {
     var input = try parse("input/day06.txt");
     defer input.deinit();
 
-    std.debug.print("distinct positions: {d}\n", .{try countPositions(&input)});
+    const result = try analyzeGuardPathing(&input);
+    std.debug.print("distinct positions: {d}\n", .{result[0]});
+    std.debug.print("possible loops: {d}\n", .{result[1]});
 }
 
 test "06" {
-    var input = try .parse("examples/day06.txt");
+    var input = try parse("examples/day06.txt");
     defer input.deinit();
 
-    std.testing.expectEqual(41, try countPositions(&input));
+    const result = try analyzeGuardPathing(&input);
+    try std.testing.expectEqual(41, result[0]);
+    try std.testing.expectEqual(6, result[1]);
 }
 
-fn countPositions(input: *const Input) !usize {
+fn analyzeGuardPathing(input: *const Input) !struct { usize, usize } {
     var positions = Map(usize, void).init(gpa);
+    defer positions.deinit();
     try positions.put(input.origin, {});
+
+    var possibleLoops: usize = 0;
+    var lastPositions = try List(usize).initCapacity(gpa, 3);
+    defer lastPositions.deinit();
 
     var currentPosition = input.origin;
     var currentDirection = input.direction;
     while (move(currentPosition, currentDirection, input)) |movement| {
-        currentPosition = movement[0];
-        currentDirection = movement[1];
+        currentPosition = movement.newPosition;
+        if (movement.newDirection) |newDir| {
+            currentDirection = newDir;
+            if (lastPositions.items.len == 2) {
+                const candidate = intersection(lastPositions.items[0], currentPosition, currentDirection, input.width);
+                if (isFreePath(currentPosition, candidate, currentDirection, input)) {
+                    // std.debug.print("current: {d}, candidate: {d}\n", .{ currentPosition, candidate });
+                    possibleLoops += 1;
+                }
+                _ = lastPositions.orderedRemove(0);
+            }
+            try lastPositions.append(currentPosition);
+            // check loop
+        }
         _ = try positions.getOrPut(currentPosition);
     }
 
-    return positions.count();
+    return .{ positions.count(), possibleLoops };
 }
 
-fn move(from: usize, direction: Direction, input: *const Input) ?struct { usize, Direction } {
+fn move(from: usize, direction: Direction, input: *const Input) ?struct { newPosition: usize, newDirection: ?Direction } {
     var dir = direction;
 
     while (nextPosition(from, dir, input.width, input.total)) |newPos| {
         if (!input.obstacles.contains(newPos)) {
-            return .{ newPos, dir };
+            return .{ .newPosition = newPos, .newDirection = if (dir != direction) dir else null };
         }
         dir = dir.turn();
     }
@@ -55,6 +76,33 @@ fn nextPosition(from: usize, direction: Direction, width: usize, total: usize) ?
     if (from >= (total - width) and direction == Direction.down) return null;
 
     return direction.move(from, width);
+}
+
+fn intersection(firstPoint: usize, secondPoint: usize, direction: Direction, width: usize) usize {
+    const isVertical = direction.isVertical();
+    const columnPoint = if (isVertical) secondPoint else firstPoint;
+    const rowPoint = if (isVertical) firstPoint else secondPoint;
+
+    return (rowPoint / width) * width + @mod(columnPoint, width);
+}
+
+fn isFreePath(from: usize, to: usize, direction: Direction, input: *const Input) bool {
+    var obstacles = input.obstacles.keyIterator();
+    while (obstacles.next()) |obstacle| {
+        if (!isBetween(from, to, obstacle.*)) continue;
+        if (!direction.isVertical()) return false;
+        if (sharesColumn(from, obstacle.*, input.width)) return false;
+    }
+
+    return true;
+}
+
+fn isBetween(first: usize, second: usize, point: usize) bool {
+    return (point > first) != (point > second); // XOR
+}
+
+fn sharesColumn(first: usize, second: usize, width: usize) bool {
+    return (first / width) == (second / width);
 }
 
 const Direction = enum(u8) {
@@ -75,6 +123,10 @@ const Direction = enum(u8) {
     pub fn turn(self: Direction) Direction {
         const next = @mod(@intFromEnum(self) + 1, @typeInfo(Direction).Enum.fields.len);
         return @enumFromInt(next);
+    }
+
+    pub fn isVertical(self: Direction) bool {
+        return @mod(@intFromEnum(self), 2) == 0;
     }
 
     const chars = [@typeInfo(Direction).Enum.fields.len]u8{ '^', '>', '<', 'v' };

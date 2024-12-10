@@ -25,7 +25,7 @@ zig build day01
 | [Day 3](https://adventofcode.com/2024/day/3) | ⭐ | ⭐ |
 | [Day 4](https://adventofcode.com/2024/day/4) | ⭐ | ⭐ |
 | [Day 5](https://adventofcode.com/2024/day/5) | ⭐ | ⭐ |
-| [Day 6](https://adventofcode.com/2024/day/6) | ⭐ |   |
+| [Day 6](https://adventofcode.com/2024/day/6) | ⭐ | x |
 | [Day 7](https://adventofcode.com/2024/day/7) |   |   |
 | [Day 8](https://adventofcode.com/2024/day/8) |   |   |
 | [Day 9](https://adventofcode.com/2024/day/9) |   |   |
@@ -54,3 +54,4 @@ took my hours when it should have been minutes.
 - **Day 02**: I'm starting to get that Zig is all about working with arrays.
 - **Day 03**: Had to add a dependency to use regex. Holy mother of Haruhi, what a painful ride.
 - **Day 04**: There's no AoC without matrix navigation, innit?
+- Day 06: The hypothesis for my second solution was wrong and I don't want to go the "attempt all" route so I'm leaving this one for later.
