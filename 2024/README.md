@@ -55,3 +55,4 @@ took my hours when it should have been minutes.
 - **Day 03**: Had to add a dependency to use regex. Holy mother of Haruhi, what a painful ride.
 - **Day 04**: There's no AoC without matrix navigation, innit?
 - Day 06: The hypothesis for my second solution was wrong and I don't want to go the "attempt all" route so I'm leaving this one for later.
+- **Day 07**: Would have loved to do this one multithreaded or parallel, but I'm not that comfortable with Zig yet.
