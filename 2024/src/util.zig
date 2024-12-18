@@ -17,6 +17,29 @@ pub fn readInputFile(filename: []const u8) ![]const u8 {
     return try file.reader().readAllAlloc(gpa, fileSize);
 }
 
+pub const Coords = Coordinates(usize);
+
+pub fn Coordinates(comptime T: type) type {
+    return struct {
+        const Self = @This();
+
+        x: T,
+        y: T,
+
+        pub fn index(self: *const Self, width: T) T {
+            return self.y * width + self.x;
+        }
+
+        pub fn isLeftOf(self: *const Self, other: *const Self) bool {
+            return self.x < other.y;
+        }
+
+        pub fn eql(self: *const Self, other: *const Self) bool {
+            return self.x == other.x and self.y == other.y;
+        }
+    };
+}
+
 // Useful stdlib functions
 const tokenizeAny = std.mem.tokenizeAny;
 const tokenizeSeq = std.mem.tokenizeSequence;
