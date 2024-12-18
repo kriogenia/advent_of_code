@@ -6,131 +6,153 @@ pub fn main() !void {
     var input = try parse("input/day08.txt");
     defer input.deinit();
 
-    std.debug.print("antinodes: {d}\n", .{try countAntiNodes(&input)});
+    const result = try countAntiNodes(&input);
+    std.debug.print("antinodes: {d}\n", .{result[0]});
+    std.debug.print("resonant antinodes: {d}\n", .{result[1]});
 }
 
 test "08" {
     var input = try parse("examples/day08.txt");
     defer input.deinit();
 
-    try std.testing.expectEqual(14, try countAntiNodes(&input));
+    const result = try countAntiNodes(&input);
+    try std.testing.expectEqual(14, result[0]);
+    try std.testing.expectEqual(34, result[1]);
 }
 
-fn countAntiNodes(input: *const Input) !usize {
-    var validAntinodes = Indices.init(gpa);
+fn countAntiNodes(input: *const Input) !struct { usize, usize } {
+    var closeAntinodes = Indices.init(gpa);
+    var resonantAntinodes = Indices.init(gpa);
+    defer closeAntinodes.deinit();
+    defer resonantAntinodes.deinit();
 
     var keys = input.nodes.keyIterator();
     while (keys.next()) |k| {
         const placedNodes = input.nodes.get(k.*).?.items;
+        if (placedNodes.len > 1) {
+            for (placedNodes) |node| {
+                try appendIfNew(&resonantAntinodes, node, input.width);
+            }
+        }
+
         for (0..placedNodes.len - 1) |i| {
-            for ((try generateAntiNodes(placedNodes[i], placedNodes[i + 1 ..], input.width, input.height)).items) |an| {
-                const index = an.index(input.width);
-                if (containsIndex(validAntinodes.items, index)) continue;
-                try validAntinodes.append(index);
+            const antinodes = try generateAntiNodes(placedNodes[i], placedNodes[i + 1 ..], input.width, input.height);
+
+            for (antinodes.close) |an| {
+                try appendIfNew(&closeAntinodes, an, input.width);
+            }
+
+            for (antinodes.recursive) |an| {
+                try appendIfNew(&resonantAntinodes, an, input.width);
             }
         }
     }
 
-    return validAntinodes.items.len;
+    return .{ closeAntinodes.items.len, resonantAntinodes.items.len };
 }
 
-fn containsIndex(slice: []const usize, index: usize) bool {
-    return std.mem.indexOfScalar(usize, slice, index) != null;
+fn appendIfNew(list: *Indices, node: Vec, width: isize) !void {
+    const index = node.index(width);
+    if (std.mem.indexOfScalar(isize, list.items, index) == null) {
+        try list.append(index);
+    }
 }
 
-fn generateAntiNodes(node: Coords, pairs: []const Coords, width: usize, height: usize) !Placements {
-    var antinodes = Placements.init(gpa);
-    errdefer antinodes.deinit();
+fn generateAntiNodes(node: Vec, pairs: []const Vec, width: isize, height: isize) !struct { close: []Vec, recursive: []Vec } {
+    var close = Placements.init(gpa);
+    var recursive = Placements.init(gpa);
+    errdefer close.deinit();
+    errdefer recursive.deinit();
 
     for (pairs) |pair| {
-        const ans = if (node.isLeftOf(&pair)) antiNodesOf(node, pair, width, height) else antiNodesOf(pair, node, width, height);
-        if (ans[0]) |leftAN| {
-            try antinodes.append(leftAN);
-        }
-        if (ans[1]) |rightAN| {
-            try antinodes.append(rightAN);
-        }
+        const ans = try antiNodesOf(node, pair, width, height);
+
+        if (ans.left.len > 0) try close.appendSlice(ans.left[0..1]);
+        if (ans.right.len > 0) try close.appendSlice(ans.right[0..1]);
+
+        try recursive.appendSlice(ans.left);
+        try recursive.appendSlice(ans.right);
     }
 
-    return antinodes;
-}
-
-test "antiNodesOf" {
-    const left = Coords{ .x = 5, .y = 2 };
-    const right = Coords{ .x = 8, .y = 1 };
-    const antinodes = antiNodesOf(left, right, 12, 12);
-    try std.testing.expect(antinodes[0].?.eql(&Coords{ .x = 2, .y = 3 }));
-    try std.testing.expect(antinodes[1].?.eql(&Coords{ .x = 11, .y = 0 }));
-}
-
-fn antiNodesOf(left: Coords, right: Coords, width: usize, height: usize) struct { ?Coords, ?Coords } {
-    const iLeft = toSignedCoords(left);
-    const iRight = toSignedCoords(right);
-
-    const leftAN = ICoords{ .x = iLeft.x + iLeft.x - iRight.x, .y = iLeft.y + iLeft.y - iRight.y };
-    const rightAN = ICoords{ .x = iRight.x + iRight.x - iLeft.x, .y = iRight.y + iRight.y - iLeft.y };
-
-    return .{ toCoords(leftAN, width, height), toCoords(rightAN, width, height) };
-}
-
-fn toSignedCoords(coords: Coords) ICoords {
     return .{
-        .x = @as(isize, @intCast(coords.x)),
-        .y = @as(isize, @intCast(coords.y)),
+        .close = try close.toOwnedSlice(),
+        .recursive = try recursive.toOwnedSlice(),
     };
 }
 
-fn toCoords(coords: ICoords, width: usize, height: usize) ?Coords {
-    if (coords.x < 0 or coords.y < 0) return null;
-    const x: usize = @intCast(coords.x);
-    const y: usize = @intCast(coords.y);
-    if (x >= width or y >= height) return null;
+test "antinodesOf" {
+    const left = Vec{ .x = 4, .y = 4 };
+    const right = Vec{ .x = 5, .y = 2 };
 
-    return Coords{ .x = x, .y = y };
+    const ans = try antiNodesOf(left, right, 12, 12);
+    try std.testing.expect(ans.left[0].eql(&Vec{ .x = 3, .y = 6 }));
+    try std.testing.expect(ans.right[0].eql(&Vec{ .x = 6, .y = 0 }));
+    try std.testing.expectEqual(3, ans.left.len);
+    try std.testing.expectEqual(1, ans.right.len);
 }
 
-const Coords = util.Coords;
-const ICoords = util.Coordinates(isize);
+fn antiNodesOf(left: Vec, right: Vec, width: isize, height: isize) !struct { left: []Vec, right: []Vec } {
+    const vecLR = Vec{ .x = right.x - left.x, .y = right.y - left.y };
+    const vecRL = Vec{ .x = -vecLR.x, .y = -vecLR.y };
 
-const Indices = std.ArrayList(usize);
-const Placements = std.ArrayList(Coords);
+    var leftANs = Placements.init(gpa);
+    var rightANs = Placements.init(gpa);
+    errdefer leftANs.deinit();
+    errdefer rightANs.deinit();
+
+    var leftVec = left;
+    while (move(leftVec, vecRL, width, height)) |an| : (leftVec = an) {
+        try leftANs.append(an);
+    }
+
+    var rightVec = right;
+    while (move(rightVec, vecLR, width, height)) |an| : (rightVec = an) {
+        try rightANs.append(an);
+    }
+
+    return .{
+        .left = try leftANs.toOwnedSlice(),
+        .right = try rightANs.toOwnedSlice(),
+    };
+}
+
+fn move(from: Vec, movement: Vec, width: isize, height: isize) ?Vec {
+    const newVec = Vec{ .x = from.x + movement.x, .y = from.y + movement.y };
+    if (newVec.x < 0 or newVec.x >= width or newVec.y < 0 or newVec.y >= height) return null;
+    return newVec;
+}
+
+const Vec = util.Coordinates(isize);
+const Indices = std.ArrayList(isize);
+const Placements = std.ArrayList(Vec);
 const Nodes = std.AutoHashMap(u8, Placements);
 
 const Input = struct {
     nodes: Nodes,
-    occupiedIndices: Indices,
-    width: usize,
-    height: usize,
-
-    fn isOccupied(self: *const @This(), index: usize) bool {
-        return std.mem.indexOfScalar(usize, self.occupiedIndices.items, index) != null;
-    }
+    width: isize,
+    height: isize,
 
     fn deinit(self: *@This()) void {
         self.nodes.deinit();
-        self.occupiedIndices.deinit();
     }
 };
 
 fn parse(filename: []const u8) !Input {
     const input = try util.readInputFile(filename);
 
-    var width: usize = undefined;
+    var width: isize = undefined;
     var nodes = Nodes.init(gpa);
-    var occupied = Indices.init(gpa);
     errdefer nodes.deinit();
-    errdefer occupied.deinit();
 
-    var rows: usize = 0;
+    var rows: isize = 0;
     var lines = std.mem.splitScalar(u8, input, '\n');
     while (lines.next()) |line| : (rows += 1) {
         if (line.len == 0) break;
-        width = line.len;
+        width = @as(isize, @intCast(line.len));
 
         for (line, 0..) |char, col| {
             if (char == '.') continue;
-            const coords = Coords{ .x = col, .y = rows };
-            try occupied.append(coords.index(width));
+            const coords = Vec{ .x = @as(isize, @intCast(col)), .y = rows };
 
             const sameFreq = try nodes.getOrPut(char);
             if (sameFreq.found_existing) {
@@ -147,7 +169,6 @@ fn parse(filename: []const u8) !Input {
 
     return Input{
         .nodes = nodes,
-        .occupiedIndices = occupied,
         .width = width,
         .height = rows,
     };

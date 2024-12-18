@@ -21,7 +21,7 @@ learn new ones.
 |---|---|---|
 | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg" /> |
 | **Python** | **Rust** | **Zig** |
-| [![2024](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&logoColor=k&labelColor=orange)](https://adventofcode.com/2024) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=orange)](https://adventofcode.com/2022) | [![2021](https://img.shields.io/badge/⭐%2013-gray?logo=adventofcode&logoColor=black&labelColor=yellow)](https://adventofcode.com/2021) |
+| [![2021](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&logoColor=k&labelColor=orange)](https://adventofcode.com/2024) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=orange)](https://adventofcode.com/2022) | [![2024](https://img.shields.io/badge/⭐%2015-gray?logo=adventofcode&logoColor=black&labelColor=yellow)](https://adventofcode.com/2021) |
 
 Inside the folder of each year you can find a different README.md with the
 information about the structure used, how it can be run, acknowledgments and
