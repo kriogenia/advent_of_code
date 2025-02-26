@@ -10,16 +10,17 @@ if (import.meta.main) {
   const part = Deno.args[1] || "ab";
 
   const dayPromise = import(`./day_${number}.ts`);
-  const generator = readFile(`input/day_${number}.txt`);
 
   const day: Day<unknown> = (await dayPromise).default;
 
   if (part === "a" || part === "ab") {
+    const generator = readFile(`input/day_${number}.txt`);
     const result = day.a.parser(generator).then(day.a.solver);
     console.log(`${part === "ab" ? "A: " : ""}${await result}`);
   }
 
   if (part === "b" || part === "ab") {
+    const generator = readFile(`input/day_${number}.txt`);
     const result = day.b?.parser(generator).then(day.b?.solver) || "nyi";
     console.log(`${part === "ab" ? "B: " : ""}${await result}`);
   }
