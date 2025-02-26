@@ -17,11 +17,11 @@ by years. Each year I attempt the challenge with a different language so I can
 use this event as an excuse to reinforce my knowledge with some languages or
 learn new ones.
 
-| [2021](./2021) | [2022](./2022) | [2024](./2024) |
-|---|---|---|
-| <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg" /> |
-| **Python** | **Rust** | **Zig** |
-| [![2021](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&logoColor=k&labelColor=orange)](https://adventofcode.com/2024) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=orange)](https://adventofcode.com/2022) | [![2024](https://img.shields.io/badge/⭐%2015-gray?logo=adventofcode&logoColor=black&labelColor=yellow)](https://adventofcode.com/2021) |
+| [2021](./2021) | [2022](./2022) | [2023](./2023) | [2024](./2024) |
+|---|---|---|---|
+| <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" /> |<img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg" /> |
+| **Python** | **Rust** | **Typescript** | **Zig** |
+| [![2021](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&logoColor=k&labelColor=orange)](https://adventofcode.com/2021) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=orange)](https://adventofcode.com/2022) | [![2023](https://img.shields.io/badge/⭐%200-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2023) | [![2024](https://img.shields.io/badge/⭐%2015-gray?logo=adventofcode&logoColor=black&labelColor=yellow)](https://adventofcode.com/2024) |
 
 Inside the folder of each year you can find a different README.md with the
 information about the structure used, how it can be run, acknowledgments and
