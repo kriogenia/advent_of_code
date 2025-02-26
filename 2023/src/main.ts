@@ -1,16 +1,26 @@
 import { Day, readFile } from "./common.ts";
 
 if (import.meta.main) {
-  if (Deno.args.length !== 1) {
-    console.error("Please, provide only the day number as an argument");
+  if (Deno.args.length < 1) {
+    console.error("Please, provide the day number as an argument");
     Deno.exit(1);
   }
 
   const number = Deno.args[0];
+  const part = Deno.args[1] || "ab";
+
   const dayPromise = import(`./day_${number}.ts`);
   const generator = readFile(`input/day_${number}.txt`);
 
   const day: Day<unknown> = (await dayPromise).default;
-  const result = day.a.parser(generator).then(day.a.solver);
-  console.log(await result);
+
+  if (part === "a" || part === "ab") {
+    const result = day.a.parser(generator).then(day.a.solver);
+    console.log(`${part === "ab" ? "A: " : ""}${await result}`);
+  }
+
+  if (part === "b" || part === "ab") {
+    const result = day.b?.parser(generator).then(day.b?.solver) || "nyi";
+    console.log(`${part === "ab" ? "B: " : ""}${await result}`);
+  }
 }
