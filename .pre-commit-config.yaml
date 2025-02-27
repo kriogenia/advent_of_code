@@ -1,0 +1,8 @@
+repos:
+- repo: local
+  hooks:
+  - id: readmes_generator
+    name: READMEs generator
+    entry: python templates/generate_readmes.py
+    language: python
+    files: ".README.template.md"
