@@ -2,8 +2,12 @@ import { assertEquals } from "@std/assert";
 import { Day, readFile } from "./common.ts";
 
 const DAYS = 2;
-const PART_A = [undefined, 142, 8];
-const PART_B = [undefined, 281];
+
+const TESTS: Test[] = [
+  { a: 0, b: 0 },
+  { a: 142, b: 281, dual: true },
+  { a: 8, b: 2286 },
+];
 
 for (let i = 1; i < DAYS + 1; i++) {
   const number = i < 10 ? `0${i}` : `${i}`;
@@ -12,9 +16,9 @@ for (let i = 1; i < DAYS + 1; i++) {
   Deno.test({
     name: `Day: ${i}. Part A`,
     fn: async () => {
-      const generator = readFile(`test/day_${number}_a.txt`);
+      const generator = readFile(`test/day_${number}.txt`);
       const result = day.a.parser(generator).then(day.a.solver);
-      assertEquals(await result, PART_A[i]);
+      assertEquals(await result, TESTS[i].a);
     },
   });
 
@@ -23,10 +27,17 @@ for (let i = 1; i < DAYS + 1; i++) {
   Deno.test({
     name: `Day: ${i}. Part B`,
     fn: async () => {
-      const generator = readFile(`test/day_${number}_b.txt`);
+      const dual = TESTS[i]?.dual ? "_b" : "";
+      const generator = readFile(`test/day_${number}${dual}.txt`);
       const day: Day<unknown> = (await import(`./day_${number}.ts`)).default;
       const result = day.b!.parser(generator).then(day.b!.solver);
-      assertEquals(await result, PART_B[i]);
+      assertEquals(await result, TESTS[i].b);
     },
   });
+}
+
+interface Test {
+  a: number;
+  b: number;
+  dual?: boolean;
 }
