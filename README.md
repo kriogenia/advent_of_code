@@ -34,4 +34,4 @@ sometimes a few afterthoughts of my journey throughout the challenges.
 * **Max**: Rust 2022 (30/50)
 * **Min**: Typescript 2023 (3/50)
 * **Average**: 19/50 ⭐
-* **Median**: 15/50 ⭐
+* **Median**: 22/50 ⭐
