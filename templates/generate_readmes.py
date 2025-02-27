@@ -3,7 +3,10 @@ import os
 templates_name = ".README.template.md"
 excluded_dirs = ["templates", ".git"]
 config_lines = 2
+
 day_template = "[Day {day}](https://adventofcode.com/{year}/day/{day})"
+img_template = '<img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{icon}/{icon}-original.svg" />'
+badge_template = "[![{year}](https://img.shields.io/badge/⭐%20{stars}-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/{year})"
 
 
 def read_config(file):
@@ -35,6 +38,51 @@ def write_completion_table(file, days, year):
     file.write(f"\n**Total**: {sum(days)}/50 ⭐\n\n")
 
 
+def write_years_table(file, years):
+    sorted_years = sorted(years)
+
+    def year(year, _):
+        return f"[{year}](./{year})"
+
+    def separator(*_):
+        return ":----:"
+
+    def image_link(_, config):
+        return img_template.format(icon=config["icon"])
+
+    def name(_, config):
+        return f"**{config['title']}**"
+
+    def stars(year, config):
+        return badge_template.format(year=year, stars=sum(config["days"]))
+
+    for mapping in [year, separator, image_link, name, stars]:
+        transformed = [mapping(year, years[year]) for year in sorted_years]
+        file.write(f"| {' | '.join(transformed)} |\n")
+
+
+def write_stats(file, years):
+    sums = []
+    max = (None, 0)
+    min = (None, 51)
+    for year, data in years.items():
+        star_sum = sum(data["days"])
+        sums.append(star_sum)
+        if star_sum > max[1]:
+            max = (year, star_sum)
+        if star_sum < min[1]:
+            min = (year, star_sum)
+    total = sum(sums)
+    n = len(sums)
+
+    file.write(f"**Years**: {n}\n")
+    file.write(f"**Total**: {total}/{n * 50} ⭐\n")
+    file.write(f"**Max**: {years[max[0]]['title']} {max[0]} ({max[1]}/50)\n")
+    file.write(f"**Min**: {years[min[0]]['title']} {min[0]} ({min[1]}/50)\n")
+    file.write(f"**Average**: {total//n}/50 ⭐\n")
+    file.write(f"**Median**: {sums[len(sums) // 2]}/50 ⭐\n")
+
+
 def generate_year_readme(year, template):
     days = {}
     with open(f"{year}/README.md", "w") as new_readme:
@@ -48,8 +96,22 @@ def generate_year_readme(year, template):
     return days
 
 
+def generate_root_readme(years):
+    with open(f"templates/{templates_name}") as root_template:
+        with open("README.md", "w") as root_readme:
+            for line in root_template.readlines():
+                if line.startswith("// years"):
+                    write_years_table(root_readme, years)
+                elif line.startswith("// stats"):
+                    write_stats(root_readme, years)
+                else:
+                    root_readme.write(line)
+
+
 years = {}
 for year in [f for f in os.listdir(".") if os.path.isdir(f) and f not in excluded_dirs]:
     with open(f"{year}/{templates_name}") as template:
         years[year] = read_config(template)
         years[year]["days"] = generate_year_readme(year, template)
+
+generate_root_readme(years)

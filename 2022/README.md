@@ -34,8 +34,9 @@ examples) with `cargo test`.
 | [Day 12](https://adventofcode.com/2022/day/12) | ⭐ | ⭐ |
 | [Day 13](https://adventofcode.com/2022/day/13) | ⭐ | ⭐ |
 | [Day 14](https://adventofcode.com/2022/day/14) | ⭐ | ⭐ |
+| [Day 15](https://adventofcode.com/2022/day/15) | ⭐ | ⭐ |
 
-**Total**: 28/50 ⭐
+**Total**: 30/50 ⭐
 
 
 ## Times
@@ -58,6 +59,7 @@ The following times were recorded in my local machine. Parsing time is usually c
 | **Day 12** | 26.75µs    | 3.84ms     | 1.82ms     | 5.69ms     |
 | **Day 13** | 401.24µs   | 7.61µs     | 216.16µs   | 625.01µs   |
 | **Day 14** | 357.03µs   | 159.87µs   | 7.00ms     | 7.52ms     |
+| **Day 14** | ?   | ?   | ?     | ?     |
 
 Total running time for all days and parts: **49.40ms** (at the moment).
 
