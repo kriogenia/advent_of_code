@@ -75,12 +75,12 @@ def write_stats(file, years):
     total = sum(sums)
     n = len(sums)
 
-    file.write(f"**Years**: {n}\n")
-    file.write(f"**Total**: {total}/{n * 50} ⭐\n")
-    file.write(f"**Max**: {years[max[0]]['title']} {max[0]} ({max[1]}/50)\n")
-    file.write(f"**Min**: {years[min[0]]['title']} {min[0]} ({min[1]}/50)\n")
-    file.write(f"**Average**: {total//n}/50 ⭐\n")
-    file.write(f"**Median**: {sums[len(sums) // 2]}/50 ⭐\n")
+    file.write(f"* **Years**: {n}\n")
+    file.write(f"* **Total**: {total}/{n * 50} ⭐\n")
+    file.write(f"* **Max**: {years[max[0]]['title']} {max[0]} ({max[1]}/50)\n")
+    file.write(f"* **Min**: {years[min[0]]['title']} {min[0]} ({min[1]}/50)\n")
+    file.write(f"* **Average**: {total//n}/50 ⭐\n")
+    file.write(f"* **Median**: {sums[len(sums) // 2]}/50 ⭐\n")
 
 
 def generate_year_readme(year, template):

@@ -29,9 +29,9 @@ sometimes a few afterthoughts of my journey throughout the challenges.
 
 ## Stats
 
-**Years**: 4
-**Total**: 77/200 ⭐
-**Max**: Rust 2022 (30/50)
-**Min**: Typescript 2023 (3/50)
-**Average**: 19/50 ⭐
-**Median**: 15/50 ⭐
+* **Years**: 4
+* **Total**: 77/200 ⭐
+* **Max**: Rust 2022 (30/50)
+* **Min**: Typescript 2023 (3/50)
+* **Average**: 19/50 ⭐
+* **Median**: 15/50 ⭐
