@@ -1,4 +1,4 @@
-import { Day, FileReader, Parser, Solver } from "./common.ts";
+import { Day, FileReader, Parser, Solver, SUM } from "./common.ts";
 
 type Input = string[];
 
@@ -11,7 +11,7 @@ const solveA: Solver<Input> = (input: Input) => {
     .map((line) => [...line])
     .map((chars) => `${chars.find(isDigit)}${chars.reverse().find(isDigit)}`)
     .map(Number)
-    .reduce((a, b) => a + b, 0);
+    .reduce(SUM, 0);
 };
 
 const solveB: Solver<Input> = (input: Input) => {

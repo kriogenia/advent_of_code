@@ -32,3 +32,5 @@ export async function* readFile(
     yield line;
   }
 }
+
+export const SUM = (a: number, b: number): number => a + b;

@@ -1,4 +1,4 @@
-import { Day, FileReader, Parser, Solver } from "./common.ts";
+import { Day, FileReader, Parser, Solver, SUM } from "./common.ts";
 
 type Input = Game[];
 
@@ -47,7 +47,7 @@ const solveA: Solver<Input> = (games: Input) => {
 const solveB: Solver<Input> = (games: Input) => {
   return games.map((game) => game.max).map((max) =>
     max.red * max.green * max.blue
-  ).reduce((a, b) => a + b, 0);
+  ).reduce(SUM, 0);
 };
 
 const maxSet = (left: Set, right: Set): Set => {

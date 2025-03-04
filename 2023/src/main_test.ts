@@ -1,15 +1,14 @@
 import { assertEquals } from "@std/assert";
 import { Day, readFile } from "./common.ts";
 
-const DAYS = 2;
-
 const TESTS: Test[] = [
   { a: 0, b: 0 },
   { a: 142, b: 281, dual: true },
   { a: 8, b: 2286 },
+  { a: 4361, b: 0 },
 ];
 
-for (let i = 1; i < DAYS + 1; i++) {
+for (let i = 1; i < TESTS.length; i++) {
   const number = i < 10 ? `0${i}` : `${i}`;
   const day: Day<unknown> = (await import(`./day_${number}.ts`)).default;
 
