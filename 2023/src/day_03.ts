@@ -4,10 +4,11 @@ type Input = Schematic;
 
 interface Schematic {
   numbers: PartNumber[];
-  symbols: Coordinate[];
+  symbols: Symbol[];
+  gears: Symbol[];
 }
 
-interface Coordinate {
+interface Symbol {
   row: number;
   col: number;
 }
@@ -15,28 +16,31 @@ interface Coordinate {
 // TODO: optimize to just handle the row and the start and end cols?
 class PartNumber {
   number: number;
-  start: Coordinate;
-  end: Coordinate;
+  row: number;
+  start: number;
+  end: number;
 
-  constructor(number: number, start: Coordinate) {
+  constructor(number: number, row: number, start: number) {
     this.number = number;
+    this.row = row;
     this.start = start;
-    this.end = { row: start.row, col: start.col };
+    this.end = start;
   }
 
   append(number: number) {
     this.number = this.number * 10 + number;
-    this.end.col += 1;
+    this.end += 1;
   }
 
   isColumnAdjacent(x: number): boolean {
-    return x >= (this.start.col - 1) && x <= (this.end.col + 1);
+    return x >= (this.start - 1) && x <= (this.end + 1);
   }
 }
 
 const parse: Parser<Input> = async (gen: FileReader): Promise<Input> => {
   const numbers: PartNumber[] = [];
-  const symbols: Coordinate[] = [];
+  const symbols: Symbol[] = [];
+  const gears: Symbol[] = [];
 
   let row = 0;
   for await (const line of gen) {
@@ -52,7 +56,7 @@ const parse: Parser<Input> = async (gen: FileReader): Promise<Input> => {
       const parsed = Number.parseInt(c);
       if (!Number.isNaN(parsed)) {
         if (!numBuffer) {
-          numBuffer = new PartNumber(parsed, { row: row, col: col });
+          numBuffer = new PartNumber(parsed, row, col);
         } else {
           numBuffer.append(parsed);
         }
@@ -61,6 +65,9 @@ const parse: Parser<Input> = async (gen: FileReader): Promise<Input> => {
 
       if (c !== ".") {
         symbols.push({ row: row, col: col });
+        if (c === "*") {
+          gears.push({ row: row, col: col });
+        }
       }
       checkNumBuffer();
     });
@@ -72,6 +79,7 @@ const parse: Parser<Input> = async (gen: FileReader): Promise<Input> => {
   return {
     numbers: numbers,
     symbols: symbols,
+    gears: gears,
   };
 };
 
@@ -83,14 +91,34 @@ const solveA: Solver<Input> = (schematic: Input) => {
     .reduce(SUM, 0);
 };
 
+const solveB: Solver<Input> = (schematic: Input) => {
+  const findAdjacentNumbers = numberSearcher(schematic.numbers);
+  return schematic.gears
+    .map(findAdjacentNumbers)
+    .filter((ns) => ns.length == 2)
+    .map((ns) => ns[0].number * ns[1].number)
+    .reduce(SUM, 0);
+};
+
+const isAdjacent = (distance: number) => distance >= -1 && distance <= 1;
+
 const symbolSearcher = (
-  symbols: Coordinate[],
+  symbols: Symbol[],
 ): (num: PartNumber) => boolean => {
-  const isAdjacent = (distance: number) => distance >= -1 && distance <= 1;
   return (num) => {
     return symbols
-      .filter((s) => isAdjacent(num.start.row - s.row))
+      .filter((s) => isAdjacent(num.row - s.row))
       .find((s) => num.isColumnAdjacent(s.col)) != undefined;
+  };
+};
+
+const numberSearcher = (
+  numbers: PartNumber[],
+): (sym: Symbol) => PartNumber[] => {
+  return (sym) => {
+    return numbers
+      .filter((n) => isAdjacent(sym.row - n.row))
+      .filter((n) => n.isColumnAdjacent(sym.col));
   };
 };
 
@@ -98,6 +126,10 @@ const day: Day<Input> = {
   a: {
     parser: parse,
     solver: solveA,
+  },
+  b: {
+    parser: parse,
+    solver: solveB,
   },
 };
 

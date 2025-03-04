@@ -18,7 +18,7 @@ Only `std` dependencies were used. Every solution can be solved with a simple `d
 | :---: | :----: | :----: |
 | [Day 1](https://adventofcode.com/2023/day/1) | ⭐ | ⭐ |
 | [Day 2](https://adventofcode.com/2023/day/2) | ⭐ | ⭐ |
-| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ |    |
+| [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
 
-**Total**: 5/50 ⭐
+**Total**: 6/50 ⭐
 
