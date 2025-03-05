@@ -17,7 +17,7 @@ for (let i = 1; i < TESTS.length; i++) {
     name: `Day: ${i}. Part A`,
     fn: async () => {
       const generator = readFile(`test/day_${number}.txt`);
-      const result = day.a.parser(generator).then(day.a.solver);
+      const result = day.parser(generator).then(day.a);
       assertEquals(await result, TESTS[i].a);
     },
   });
@@ -30,7 +30,7 @@ for (let i = 1; i < TESTS.length; i++) {
       const dual = TESTS[i]?.dual ? "_b" : "";
       const generator = readFile(`test/day_${number}${dual}.txt`);
       const day: Day<unknown> = (await import(`./day_${number}.ts`)).default;
-      const result = day.b!.parser(generator).then(day.b!.solver);
+      const result = day.parser(generator).then(day.b!);
       assertEquals(await result, TESTS[i].b);
     },
   });

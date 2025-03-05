@@ -1,13 +1,9 @@
 import * as streams from "@std/streams";
 
 export interface Day<T> {
-  a: Part<T>;
-  b?: Part<T>;
-}
-
-export interface Part<T> {
   parser: Parser<T>;
-  solver: Solver<T>;
+  a: Solver<T>;
+  b?: Solver<T>;
 }
 
 export interface Parser<T> {

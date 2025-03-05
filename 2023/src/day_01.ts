@@ -57,14 +57,9 @@ const toNumber = (str: string): string => {
 };
 
 const day: Day<Input> = {
-  a: {
-    parser: parse,
-    solver: solveA,
-  },
-  b: {
-    parser: parse,
-    solver: solveB,
-  },
+  parser: parse,
+  a: solveA,
+  b: solveB,
 };
 
 export default day;

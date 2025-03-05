@@ -15,13 +15,13 @@ if (import.meta.main) {
 
   if (part === "a" || part === "ab") {
     const generator = readFile(`input/day_${number}.txt`);
-    const result = day.a.parser(generator).then(day.a.solver);
+    const result = day.parser(generator).then(day.a);
     console.log(`${part === "ab" ? "A: " : ""}${await result}`);
   }
 
-  if (part === "b" || part === "ab") {
+  if (part === "b" || part === "ab" && day.b) {
     const generator = readFile(`input/day_${number}.txt`);
-    const result = day.b?.parser(generator).then(day.b?.solver) || "nyi";
+    const result = day.parser(generator).then(day.b) || "nyi";
     console.log(`${part === "ab" ? "B: " : ""}${await result}`);
   }
 }
