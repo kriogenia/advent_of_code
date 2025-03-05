@@ -21,7 +21,7 @@ learn new ones.
 | :----: | :----: | :----: | :----: |
 | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg" /> |
 | **Python** | **Rust** | **Typescript** | **Zig** |
-| [![2021](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2021) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2022) | [![2023](https://img.shields.io/badge/⭐%207-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2023) | [![2024](https://img.shields.io/badge/⭐%2015-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2024) |
+| [![2021](https://img.shields.io/badge/⭐%2029-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2021) | [![2022](https://img.shields.io/badge/⭐%2030-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2022) | [![2023](https://img.shields.io/badge/⭐%208-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2023) | [![2024](https://img.shields.io/badge/⭐%2015-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2024) |
 
 Inside the folder of each year you can find a different README.md with the
 information about the structure used, how it can be run, acknowledgments and
@@ -30,8 +30,8 @@ sometimes a few afterthoughts of my journey throughout the challenges.
 ## Stats
 
 * **Years**: 4
-* **Total**: 81/200 ⭐
+* **Total**: 82/200 ⭐
 * **Max**: Rust 2022 (30/50)
-* **Min**: Typescript 2023 (7/50)
+* **Min**: Typescript 2023 (8/50)
 * **Average**: 20/50 ⭐
 * **Median**: 22/50 ⭐

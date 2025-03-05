@@ -6,7 +6,7 @@ const TESTS: Test[] = [
   { a: 142, b: 281, dual: true },
   { a: 8, b: 2286 },
   { a: 4361, b: 467835 },
-  { a: 13, b: 0 },
+  { a: 13, b: 30 },
 ];
 
 for (let i = 1; i < TESTS.length; i++) {
