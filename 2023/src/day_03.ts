@@ -88,7 +88,7 @@ const solveA: Solver<Input> = (schematic: Input) => {
   return schematic.numbers
     .filter(hasAdjacentSymbol)
     .map((n) => n.number)
-    .reduce(SUM, 0);
+    .reduce(SUM);
 };
 
 const solveB: Solver<Input> = (schematic: Input) => {
@@ -97,7 +97,7 @@ const solveB: Solver<Input> = (schematic: Input) => {
     .map(findAdjacentNumbers)
     .filter((ns) => ns.length == 2)
     .map((ns) => ns[0].number * ns[1].number)
-    .reduce(SUM, 0);
+    .reduce(SUM);
 };
 
 const isAdjacent = (distance: number) => distance >= -1 && distance <= 1;

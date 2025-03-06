@@ -65,17 +65,20 @@ class Range {
   // as the first value of the array, following can be the derived subranges if any.
   // If there's no intersection returns an empty array
   intersect = (window: Window): Window[] => {
-    const intersections = [];
+    const intersections: Window[] = [];
     const start = Math.max(window.start, this.sourceStart);
     const end = Math.min(window.end, this.sourceEnd);
 
     if (end > start) {
-      intersections.push(new Window(start + this.offset, end + this.offset));
+      intersections.push({
+        start: start + this.offset,
+        end: end + this.offset,
+      });
       if (window.start < start) {
-        intersections.push(new Window(window.start, start));
+        intersections.push({ start: window.start, end: start });
       }
       if (window.end > end) {
-        intersections.push(new Window(end, window.end));
+        intersections.push({ start: end, end: window.end });
       }
     }
 

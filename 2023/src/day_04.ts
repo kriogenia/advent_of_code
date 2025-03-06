@@ -19,7 +19,7 @@ const solveA: Solver<Input> = (input: Input) => {
   return input
     .filter((l) => l)
     .map((l) => Math.pow(2, l - 1))
-    .reduce(SUM, 0);
+    .reduce(SUM);
 };
 
 const solveB: Solver<Input> = (input: Input) => {
@@ -32,7 +32,7 @@ const solveB: Solver<Input> = (input: Input) => {
   };
 
   input.forEach(addCopies);
-  return copies.reduce(SUM, 0);
+  return copies.reduce(SUM);
 };
 
 const day: Day<Input> = {

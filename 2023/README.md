@@ -21,6 +21,12 @@ Only `std` dependencies were used. Every solution can be solved with a simple `d
 | [Day 3](https://adventofcode.com/2023/day/3) | ⭐ | ⭐ |
 | [Day 4](https://adventofcode.com/2023/day/4) | ⭐ | ⭐ |
 | [Day 5](https://adventofcode.com/2023/day/5) | ⭐ | ⭐ |
+| [Day 6](https://adventofcode.com/2023/day/6) | ⭐ |    |
 
-**Total**: 10/50 ⭐
+**Total**: 11/50 ⭐
 
+
+## Afterthoughts
+
+- **Day 04**. I remembered JS/TS like really comfortable languages to write functional programming, based on things like not needing to collect and all that, but after some time working other functional languages I find the standard set of functions quite lackluster. I miss `take`, `skip`, `count`...
+- **Day 05**. First real challenge where the straightforward approach was not enough. Handling ranges is quite the challenge sometimes, but also very entertaining. Oh, and every time I use a labeled loop my brain tickles.

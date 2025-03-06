@@ -47,7 +47,7 @@ const solveA: Solver<Input> = (games: Input) => {
 const solveB: Solver<Input> = (games: Input) => {
   return games.map((game) => game.max).map((max) =>
     max.red * max.green * max.blue
-  ).reduce(SUM, 0);
+  ).reduce(SUM);
 };
 
 const maxSet = (left: Set, right: Set): Set => {

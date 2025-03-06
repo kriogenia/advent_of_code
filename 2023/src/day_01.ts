@@ -11,7 +11,7 @@ const solveA: Solver<Input> = (input: Input) => {
     .map((line) => [...line])
     .map((chars) => `${chars.find(isDigit)}${chars.reverse().find(isDigit)}`)
     .map(Number)
-    .reduce(SUM, 0);
+    .reduce(SUM);
 };
 
 const solveB: Solver<Input> = (input: Input) => {

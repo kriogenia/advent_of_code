@@ -30,3 +30,4 @@ export async function* readFile(
 }
 
 export const SUM = (a: number, b: number): number => a + b;
+export const MUL = (a: number, b: number): number => a * b;
