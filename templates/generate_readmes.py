@@ -2,7 +2,6 @@ import os
 
 templates_name = ".README.template.md"
 excluded_dirs = ["templates", ".git"]
-config_lines = 2
 
 day_template = "[Day {day}](https://adventofcode.com/{year}/day/{day})"
 img_template = '<img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{icon}/{icon}-original.svg" />'
@@ -11,9 +10,11 @@ badge_template = "[![{year}](https://img.shields.io/badge/⭐%20{stars}-gray?log
 
 def read_config(file):
     config = {}
-    for line in [file.readline().split("=") for _ in range(0, config_lines)]:
+    while line := file.readline():
+        if not line.startswith("/"):
+            break
+        line = line.split("=")
         config[line[0][3:]] = line[1][:-1]
-    template.readline()  # skip separation line
     return config
 
 
@@ -62,26 +63,41 @@ def write_years_table(file, years):
 
 
 def write_stats(file, years):
-    sums = []
+    achieved = 0
+    total = 0
+    percents = []
+
     max = (None, 0)
-    min = (None, 51)
+    min = (None, 1)
+
     for year, data in years.items():
         star_sum = sum(data["days"])
-        sums.append(star_sum)
-        if star_sum > max[1]:
-            max = (year, star_sum)
-        if star_sum < min[1]:
-            min = (year, star_sum)
-    total = sum(sums)
-    n = len(sums)
-    median = (sums[n // 2] + sums[n // 2 - 1]) // 2 if not n % 2 else sums[n // 2]
+        achieved += star_sum
+
+        max_stars = int(data.get("max", 50))
+        total += max_stars
+
+        percent = star_sum / max_stars
+        percents.append(percent)
+
+        if percent > max[1]:
+            max = (year, percent)
+        if percent < min[1]:
+            min = (year, percent)
+
+    n = len(percents)
+    median = (
+        (percents[n // 2] + percents[n // 2 - 1]) // 2
+        if not n % 2
+        else percents[n // 2]
+    )
 
     file.write(f"* **Years**: {n}\n")
-    file.write(f"* **Total**: {total}/{n * 50} ⭐\n")
-    file.write(f"* **Max**: {years[max[0]]['title']} {max[0]} ({max[1]}/50)\n")
-    file.write(f"* **Min**: {years[min[0]]['title']} {min[0]} ({min[1]}/50)\n")
-    file.write(f"* **Average**: {total//n}/50 ⭐\n")
-    file.write(f"* **Median**: {median}/50 ⭐\n")
+    file.write(f"* **Total**: {achieved}/{total} ⭐\n")
+    file.write(f"* **Max**: {years[max[0]]['title']} {max[0]} ({max[1]:.2f}%)\n")
+    file.write(f"* **Min**: {years[min[0]]['title']} {min[0]} ({min[1]:.2f}%)\n")
+    file.write(f"* **Average**: {sum(percents) / n:.2f}%\n")
+    file.write(f"* **Median**: {median:.2f}%\n")
 
 
 def generate_year_readme(year, template):
