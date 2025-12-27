@@ -7,4 +7,5 @@ pub fn main() -> Nil {
 
 pub fn part_1_test() {
   assert day_01.part_1("examples/day_01.txt") == 3
+  assert day_01.part_2("examples/day_01.txt") == 6
 }

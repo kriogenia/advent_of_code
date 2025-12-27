@@ -2,59 +2,67 @@ import gleam/int
 import gleam/list
 import gleam/result
 import util/file
+import util/parse
+
+const file: String = "input/day01.txt"
 
 pub fn main() {
-  echo "Part 1: " <> { part_1("input/day01.txt") |> int.to_string() }
+  echo "Part 1: " <> { part_1(file) |> int.to_string() }
+  echo "Part 2: " <> { part_2(file) |> int.to_string() }
 }
 
 pub fn part_1(file: String) -> Int {
-  let from = State(50, 0)
-  let result =
-    file.read_lines(file)
-    |> list.filter_map(parse)
-    |> list.fold(from:, with: rotate)
-  result.zeroes
+  run(file) |> list.count(fn(s) { s.position == 0 })
 }
 
-type Direction {
-  Left
-  Right
+pub fn part_2(file: String) -> Int {
+  run(file) |> list.fold(0, fn(prev, s) { prev + s.laps })
 }
 
-fn parse(str: String) -> Result(#(Direction, Int), Nil) {
-  let to_tuple = fn(dir: Direction, i: int) { #(dir, i) }
+const starting_position: Int = 50
+
+const n_positions: Int = 100
+
+/// Performs the rotation outputing the result of each rotation
+/// for both parts.
+fn run(file: String) -> List(State) {
+  let from = State(starting_position, 0)
+  file.read_lines(file)
+  |> list.map(parse)
+  |> list.scan(from:, with: rotate)
+}
+
+fn parse(str: String) -> Int {
   case str {
-    // Two lines is fair enough to allow some duplication
-    "L" <> rotation -> rotation |> int.parse() |> result.map(to_tuple(Left, _))
-    "R" <> rotation -> rotation |> int.parse() |> result.map(to_tuple(Right, _))
-    _ -> Error(Nil)
+    "L" <> rotation -> -parse.int(rotation)
+    "R" <> rotation -> parse.int(rotation)
+    _ -> panic as "Only expected lines starting with L/R"
   }
 }
 
 type State {
-  State(position: Int, zeroes: Int)
+  State(position: Int, laps: Int)
 }
 
-fn rotate(from state: State, move movement: #(Direction, Int)) -> State {
-  case movement {
-    #(Left, rotation) -> state.position - rotation
-    #(Right, rotation) -> state.position + rotation
+fn rotate(from state: State, move movement: Int) -> State {
+  let addition = state.position + movement
+  let position = case addition % n_positions {
+    pos if pos < 0 -> n_positions + pos
+    pos -> pos
   }
-  |> guard()
-  |> count(state.zeroes)
-}
 
-fn guard(i: Int) -> Int {
-  case i % 100 {
-    0 -> 0
-    mod if i < 0 -> mod + 100
-    mod -> mod
+  let laps = case
+    addition,
+    state.position,
+    position,
+    int.floor_divide(addition, n_positions) |> result.map(int.absolute_value)
+  {
+    0, _, _, _ -> 1
+    _, 0, _, Ok(laps) if addition < 0 -> int.max(0, laps - 1)
+    _, _, 0, Ok(laps) if addition < 0 -> laps + 1
+    _, _, _, Ok(laps) -> laps
+    _, _, _, _ -> panic
   }
-}
 
-fn count(position: Int, zeroes: Int) {
-  case position {
-    0 -> State(position:, zeroes: zeroes + 1)
-    _ -> State(position:, zeroes:)
-  }
+  State(position:, laps:)
 }

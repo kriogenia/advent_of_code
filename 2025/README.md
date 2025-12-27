@@ -1,6 +1,4 @@
-// title=Gleam
-// icon=gleam
-// max=24
+# Advent of Code 2025
 
 Personal solutions to the [2025 Advent of Code](https://adventofcode.com/2025) using Gleam 1.13.
 This will be my first contact with this language.
@@ -17,11 +15,15 @@ For example:
 gleam run -m day_01
 ```
 
-// completion=start
 
-1:2
+## Completion
 
-// completion=end
+| Day   | Part A | Part B |
+| :---: | :----: | :----: |
+| [Day 1](https://adventofcode.com/2025/day/1) | ⭐ | ⭐ |
+
+**Total**: 2/50 ⭐
+
 
 ## Afterthoughts
 
