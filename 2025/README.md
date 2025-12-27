@@ -21,8 +21,9 @@ gleam run -m day_01
 | Day   | Part A | Part B |
 | :---: | :----: | :----: |
 | [Day 1](https://adventofcode.com/2025/day/1) | ⭐ | ⭐ |
+| [Day 2](https://adventofcode.com/2025/day/2) | ⭐ |    |
 
-**Total**: 2/50 ⭐
+**Total**: 3/50 ⭐
 
 
 ## Afterthoughts
