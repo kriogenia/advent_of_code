@@ -85,6 +85,7 @@ def write_stats(file, years):
         if percent < min[1]:
             min = (year, percent)
 
+    percents = sorted(percents)
     n = len(percents)
     median = (
         (percents[n // 2] + percents[n // 2 - 1]) // 2
