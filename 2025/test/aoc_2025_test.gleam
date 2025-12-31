@@ -13,4 +13,5 @@ pub fn day_1_test() {
 
 pub fn day_2_test() {
   assert day_02.part_1("examples/day_02.txt") == 1_227_775_554
+  assert day_02.part_2("examples/day_02.txt") == 4_174_379_265
 }
