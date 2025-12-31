@@ -7,7 +7,7 @@ import util/file
 import util/math
 import util/parse
 
-const file: String = "input/day02.txt"
+const file: String = "input/day_02.txt"
 
 pub fn main() {
   echo "Part 1: " <> { part_1(file) |> int.to_string() }

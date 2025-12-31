@@ -5,7 +5,7 @@ import gleam/string
 import util/file
 import util/parse
 
-const file: String = "input/day03.txt"
+const file: String = "input/day_03.txt"
 
 pub fn main() {
   echo "Part 1: " <> { part_1(file) |> int.to_string() }

@@ -23,8 +23,9 @@ gleam run -m day_01
 | [Day 1](https://adventofcode.com/2025/day/1) | ⭐ | ⭐ |
 | [Day 2](https://adventofcode.com/2025/day/2) | ⭐ | ⭐ |
 | [Day 3](https://adventofcode.com/2025/day/3) | ⭐ | ⭐ |
+| [Day 4](https://adventofcode.com/2025/day/4) | ⭐ |    |
 
-**Total**: 6/50 ⭐
+**Total**: 7/50 ⭐
 
 
 ## Afterthoughts
@@ -35,3 +36,4 @@ Sign me in.
 * **Day 02**: While I like my solution, there's probably some optimizations
 that can be done and solve the "slowness" a bit. Mainly regarding all
 the parsing and serialization back and forth.
+* **Day 03**: It's so pleasant when you easily adapt the logic for both parts...
