@@ -6,6 +6,7 @@ import gleam/string
 import util/file
 import util/math
 import util/parse
+import util/range.{type Range}
 
 const file: String = "input/day_02.txt"
 
@@ -32,7 +33,7 @@ pub fn part_2(file: String) -> Int {
 pub fn run(file: String, fun: fn(List(List(String))) -> List(Int)) -> Int {
   file.read(file)
   |> string.split(",")
-  |> list.map(fn(r) { string.split(r, "-") })
+  |> list.map(string.split(_, "-"))
   |> fun
   |> list.fold(0, int.add)
 }
@@ -65,26 +66,30 @@ fn calculate_length(numbers: List(String)) -> Int {
   length
 }
 
-fn find_invalids(range: List(Division)) -> List(Int) {
-  let assert [start, end] = range as "Ranges have two values"
+fn find_invalids(rang: List(Division)) -> List(Int) {
+  let rang = range.from_list(rang)
+  let is_contained = range.inc_contains(
+    range.map(rang, fn(r) { r.original }),
+    _,
+  )
 
-  list.range(start.left, end.left)
+  range.map(rang, fn(r) { r.left })
+  |> range.produce
   |> list.map(int.to_string)
-  |> list.map(fn(n) { extend_slice(n, 2) })
-  |> list.filter(fn(n) { n >= start.original && n <= end.original })
+  |> list.map(extend_slice(_, 2))
+  |> list.filter(is_contained)
 }
 
-fn find_invalids_p2(range: List(String)) -> List(Int) {
-  let assert [start, end] = range |> list.map(parse.int)
-    as "Ranges have two values"
+fn find_invalids_p2(values: List(String)) -> List(Int) {
+  let range = range.from_list(values) |> range.map(parse.int)
 
-  range
+  values
   |> list.map(string.length)
   |> list.flat_map(calculate_divisions)
   |> list.unique()
-  |> list.flat_map(fn(division) { generate_candidates([start, end], division) })
+  |> list.flat_map(generate_candidates(range, _))
   |> list.unique()
-  |> list.filter(fn(n) { n >= start && n <= end })
+  |> list.filter(range.inc_contains(range, _))
 }
 
 /// Takes a number and generates a new one with the base
@@ -126,17 +131,14 @@ fn do_calculate_division(
 /// It will generate the slices 6 and 12
 /// Which will generate intermediate slices 6, 7, 8, 9, 10, 11, 12
 /// And this will create the candidates 66, 77, 88, 99, 1010, 1111, 1212
-fn generate_candidates(range: List(Int), division: #(Int, Int)) -> List(Int) {
+fn generate_candidates(range: Range(Int), division: #(Int, Int)) -> List(Int) {
   let extender = extend_slice(_, division.1)
 
-  let assert [start, end] =
-    range
-    |> list.map(int.to_string)
-    |> list.map(fn(r) { slicer(r, division) })
-    |> list.map(parse.int)
-    as "Ranges have two values"
-
-  list.range(start, end)
+  range
+  |> range.map(int.to_string)
+  |> range.map(fn(r) { slicer(r, division) })
+  |> range.map(parse.int)
+  |> range.produce
   |> list.map(int.to_string)
   |> list.map(extender)
 }
