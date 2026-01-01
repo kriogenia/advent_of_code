@@ -25,8 +25,9 @@ gleam run -m day_01
 | [Day 3](https://adventofcode.com/2025/day/3) | ⭐ | ⭐ |
 | [Day 4](https://adventofcode.com/2025/day/4) | ⭐ | ⭐ |
 | [Day 5](https://adventofcode.com/2025/day/5) | ⭐ | ⭐ |
+| [Day 6](https://adventofcode.com/2025/day/6) | ⭐ |    |
 
-**Total**: 10/50 ⭐
+**Total**: 11/50 ⭐
 
 
 ## Afterthoughts
@@ -34,7 +35,8 @@ gleam run -m day_01
 - **Day 01**: Ok, I am loving this one. Functional language with
 a Rust-like syntax instead of the something painful like Elixir's.
 Sign me in.
-* **Day 02**: While I like my solution, there's probably some optimizations
+- **Day 02**: While I like my solution, there's probably some optimizations
 that can be done and solve the "slowness" a bit. Mainly regarding all
 the parsing and serialization back and forth.
-* **Day 03**: It's so pleasant when you easily adapt the logic for both parts...
+- **Day 03**: It's so pleasant when you easily adapt the logic for both parts...
+- **Day 05**: Love when I can foresee improvements that they will probably ask in part 2.
