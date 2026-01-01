@@ -19,6 +19,10 @@ pub fn map(range: Range(a), mapper: fn(a) -> b) -> Range(b) {
   Range(start: mapper(range.start), end: mapper(range.end))
 }
 
+pub fn length(range: Range(Int)) -> Int {
+  range.end - range.start
+}
+
 pub fn inc_contains(range: Range(Int), n: Int) -> Bool {
   n >= range.start && n <= range.end
 }
