@@ -31,7 +31,7 @@ fn find_removable(rolls: List(Coordinate)) -> List(Coordinate) {
     {
       roll
       |> neighbours
-      |> list.count(fn(n) { set.contains(roll_set, n) })
+      |> list.count(set.contains(roll_set, _))
     }
     < 4
   })

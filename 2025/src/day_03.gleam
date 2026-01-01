@@ -24,7 +24,7 @@ pub fn run(file: String, objective: Int) -> Int {
   file.read_lines(file)
   |> list.map(string.to_graphemes)
   |> list.map(fn(chars) { chars |> list.map(parse.int) })
-  |> list.map(fn(array) { find_digits(array, objective, 0) })
+  |> list.map(find_digits(_, objective, 0))
   |> list.fold(0, int.add)
 }
 
