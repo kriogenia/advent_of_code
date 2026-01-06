@@ -1,5 +1,6 @@
 import gleam/dict
 import gleam/list
+import gleam/set
 
 pub fn index_of(list: List(a), target: a) -> Result(Int, Nil) {
   let length = list |> list.length
