@@ -54,6 +54,7 @@ pub fn find_max(array: List(Int)) -> #(Int, Int) {
   |> list.fold_until(#(0, -1), fn(_, target) { index_of(0, array, target) })
 }
 
+// I could convert this one to the new more generic index_of but it works for this case
 fn index_of(
   index: Int,
   list: List(Int),
