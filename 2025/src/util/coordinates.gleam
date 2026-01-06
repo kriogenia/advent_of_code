@@ -1,9 +1,17 @@
+import gleam/int
 import gleam/list
 import gleam/string
 import util/parse
 
 pub type Coordinate2 {
   Coordinate2(x: Int, y: Int)
+}
+
+pub fn parse2(line: String) -> Coordinate2 {
+  case string.split(line, ",") |> list.map(parse.int) {
+    [x, y] -> Coordinate2(x:, y:)
+    _ -> panic as "must be a 3D coordinate"
+  }
 }
 
 pub fn neighbours(roll: Coordinate2) -> List(Coordinate2) {
@@ -23,7 +31,7 @@ pub type Coordinate3 {
   Coordinate3(x: Int, y: Int, z: Int)
 }
 
-pub fn parse(line: String) -> Coordinate3 {
+pub fn parse3(line: String) -> Coordinate3 {
   case string.split(line, ",") |> list.map(parse.int) {
     [x, y, z] -> Coordinate3(x:, y:, z:)
     _ -> panic as "must be a 3D coordinate"

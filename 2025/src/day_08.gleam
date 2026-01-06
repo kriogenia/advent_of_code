@@ -40,7 +40,7 @@ pub fn part_2(file: String) -> Int {
 
 fn parse(file: String) -> List(Coordinate3) {
   file.read_lines(file)
-  |> list.map(coordinates.parse)
+  |> list.map(coordinates.parse3)
 }
 
 fn sort(coordinates: List(Coordinate3)) {

@@ -28,8 +28,9 @@ gleam run -m day_01
 | [Day 6](https://adventofcode.com/2025/day/6) | ⭐ | ⭐ |
 | [Day 7](https://adventofcode.com/2025/day/7) | ⭐ | ⭐ |
 | [Day 8](https://adventofcode.com/2025/day/8) | ⭐ | ⭐ |
+| [Day 9](https://adventofcode.com/2025/day/9) | ⭐ |    |
 
-**Total**: 16/50 ⭐
+**Total**: 17/50 ⭐
 
 
 ## Afterthoughts
@@ -44,3 +45,4 @@ the parsing and serialization back and forth.
 - **Day 05**: Love when I can foresee improvements that they will probably ask in part 2.
 - **Day 07**: Set operations and dict optimizations, the real good shit.
 - **Day 08**: 14 piped functions babeeee.
+- **Day 09**: Part one was... extremely trivial?.

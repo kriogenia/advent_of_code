@@ -6,6 +6,7 @@ import day_05
 import day_06
 import day_07
 import day_08
+import day_09
 import gleeunit
 
 pub fn main() -> Nil {
@@ -50,4 +51,9 @@ pub fn day_07_test() {
 pub fn day_08_test() {
   assert day_08.part_1("examples/day_08.txt", target: 10) == 40
   assert day_08.part_2("examples/day_08.txt") == 25_272
+}
+
+pub fn day_09_test() {
+  assert day_09.part_1("examples/day_09.txt") == 50
+  // assert day_09.part_2("examples/day_09.txt") == 25_272
 }
