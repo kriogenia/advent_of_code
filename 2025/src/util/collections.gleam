@@ -1,3 +1,4 @@
+import gleam/dict
 import gleam/list
 
 pub fn index_of(list: List(a), target: a) -> Result(Int, Nil) {
@@ -21,4 +22,18 @@ pub fn remove_last(list: List(a)) -> List(a) {
     [_first, ..rest] -> list.reverse(rest)
     [] -> []
   }
+}
+
+pub fn merge_to_dict(
+  list: List(#(a, b)),
+  merger: fn(b, b) -> b,
+) -> dict.Dict(a, b) {
+  list
+  |> list.fold(dict.new(), fn(acc, tuple) {
+    let val = case acc |> dict.get(tuple.0) {
+      Ok(stored) -> merger(stored, tuple.1)
+      Error(_) -> tuple.1
+    }
+    dict.insert(acc, tuple.0, val)
+  })
 }

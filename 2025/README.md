@@ -26,9 +26,9 @@ gleam run -m day_01
 | [Day 4](https://adventofcode.com/2025/day/4) | ⭐ | ⭐ |
 | [Day 5](https://adventofcode.com/2025/day/5) | ⭐ | ⭐ |
 | [Day 6](https://adventofcode.com/2025/day/6) | ⭐ | ⭐ |
-| [Day 7](https://adventofcode.com/2025/day/7) | ⭐ |    |
+| [Day 7](https://adventofcode.com/2025/day/7) | ⭐ | ⭐ |
 
-**Total**: 13/50 ⭐
+**Total**: 14/50 ⭐
 
 
 ## Afterthoughts
@@ -41,3 +41,4 @@ that can be done and solve the "slowness" a bit. Mainly regarding all
 the parsing and serialization back and forth.
 - **Day 03**: It's so pleasant when you easily adapt the logic for both parts...
 - **Day 05**: Love when I can foresee improvements that they will probably ask in part 2.
+- **Day 07**: Set operations and dict optimizations, the real good shit.
