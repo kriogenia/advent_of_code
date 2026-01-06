@@ -49,5 +49,5 @@ pub fn day_07_test() {
 
 pub fn day_08_test() {
   assert day_08.part_1("examples/day_08.txt", target: 10) == 40
-  // assert day_08.part_2("examples/day_08.txt") == 40
+  assert day_08.part_2("examples/day_08.txt") == 25_272
 }
