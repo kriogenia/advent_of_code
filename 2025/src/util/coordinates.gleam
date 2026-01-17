@@ -27,6 +27,19 @@ pub fn neighbours(roll: Coordinate2) -> List(Coordinate2) {
   ]
 }
 
+pub type Boundaries {
+  Boundaries(min_x: Int, max_x: Int, min_y: Int, max_y: Int)
+}
+
+pub fn boundaries(pair: #(Coordinate2, Coordinate2)) -> Boundaries {
+  Boundaries(
+    min_x: int.min({ pair.0 }.x, { pair.1 }.x),
+    max_x: int.max({ pair.0 }.x, { pair.1 }.x),
+    min_y: int.min({ pair.0 }.y, { pair.1 }.y),
+    max_y: int.max({ pair.0 }.y, { pair.1 }.y),
+  )
+}
+
 pub type Coordinate3 {
   Coordinate3(x: Int, y: Int, z: Int)
 }

@@ -45,4 +45,7 @@ the parsing and serialization back and forth.
 - **Day 05**: Love when I can foresee improvements that they will probably ask in part 2.
 - **Day 07**: Set operations and dict optimizations, the real good shit.
 - **Day 08**: 14 piped functions babeeee.
-- **Day 09**: Part one was... extremely trivial?.
+- **Day 09**: Part one was... extremely trivial? And then part 2 was my first skip this year.
+I thought I had a good idea that worked for the test but it didn't for my input and I
+don't have the spirit to fight my input corner cases. Maybe I will go back if I complete
+the rest.

@@ -55,5 +55,5 @@ pub fn day_08_test() {
 
 pub fn day_09_test() {
   assert day_09.part_1("examples/day_09.txt") == 50
-  // assert day_09.part_2("examples/day_09.txt") == 25_272
+  assert day_09.part_2("examples/day_09.txt") == 24
 }
