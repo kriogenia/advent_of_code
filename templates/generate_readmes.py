@@ -26,7 +26,7 @@ def read_completion(file):
     return days
 
 
-def write_completion_table(file, days, year):
+def write_completion_table(file, days, year, max):
     file.write("\n## Completion\n\n")
     file.write("| Day   | Part A | Part B |\n")
     file.write("| :---: | :----: | :----: |\n")
@@ -36,7 +36,7 @@ def write_completion_table(file, days, year):
             file.write(f"| {day_link} | ⭐ |    |\n")
         if count == 2:
             file.write(f"| {day_link} | ⭐ | ⭐ |\n")
-    file.write(f"\n**Total**: {sum(days)}/50 ⭐\n\n")
+    file.write(f"\n**Total**: {sum(days)}/{max} ⭐\n\n")
 
 
 def write_years_table(file, years):
@@ -101,14 +101,14 @@ def write_stats(file, years):
     file.write(f"* **Median**: {median:.2f}%\n")
 
 
-def generate_year_readme(year, template):
+def generate_year_readme(year, template, max):
     days = {}
     with open(f"{year}/README.md", "w") as new_readme:
         new_readme.write(f"# Advent of Code {year}\n\n")
         while line := template.readline():
             if line.startswith("// completion=start"):
                 days = read_completion(template)
-                write_completion_table(new_readme, days, year)
+                write_completion_table(new_readme, days, year, max)
                 continue
             new_readme.write(line)
     return days
@@ -129,7 +129,10 @@ def generate_root_readme(years):
 years = {}
 for year in [f for f in os.listdir(".") if os.path.isdir(f) and f not in excluded_dirs]:
     with open(f"{year}/{templates_name}") as template:
-        years[year] = read_config(template)
-        years[year]["days"] = generate_year_readme(year, template)
+        config = read_config(template)
+        years[year] = config
+        years[year]["days"] = generate_year_readme(
+            year, template, config.get("max", 50)
+        )
 
 generate_root_readme(years)

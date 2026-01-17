@@ -29,12 +29,12 @@ gleam run -m day_01
 | [Day 7](https://adventofcode.com/2025/day/7) | ⭐ | ⭐ |
 | [Day 8](https://adventofcode.com/2025/day/8) | ⭐ | ⭐ |
 | [Day 9](https://adventofcode.com/2025/day/9) | ⭐ |    |
+| [Day 10](https://adventofcode.com/2025/day/10) | ⭐ |    |
 
-**Total**: 17/50 ⭐
+**Total**: 18/24 ⭐
 
 
 ## Afterthoughts
-
 - **Day 01**: Ok, I am loving this one. Functional language with
 a Rust-like syntax instead of the something painful like Elixir's.
 Sign me in.
@@ -49,3 +49,5 @@ the parsing and serialization back and forth.
 I thought I had a good idea that worked for the test but it didn't for my input and I
 don't have the spirit to fight my input corner cases. Maybe I will go back if I complete
 the rest.
+- **Day 10**: <3 XOR. Quite happy with the reduction from 44s to 8s I got implementing breadth
+first search for the first five levels too.
