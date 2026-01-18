@@ -60,6 +60,7 @@ pub fn day_09_test() {
 }
 
 pub fn day_10_test() {
-  assert day_10.part_1("examples/day_10.txt") == 7
-  // assert day_10.part_2("examples/day_10.txt") == 24
+  assert day_10.part_2("examples/test.txt") == 11
+  //assert day_10.part_1("examples/day_10.txt") == 7
+  //assert day_10.part_2("examples/day_10.txt") == 33
 }

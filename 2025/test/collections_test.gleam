@@ -5,3 +5,7 @@ pub fn index_of_test() {
   assert ["a", "b", "c"] |> collections.index_of("b") == Ok(1)
   assert ["a", "b", "c"] |> collections.index_of("d") == Error(Nil)
 }
+
+pub fn pad_test() {
+  assert collections.pad([1, 2, 3], 0, 5) == [1, 2, 3, 0, 0]
+}

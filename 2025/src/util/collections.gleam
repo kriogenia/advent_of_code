@@ -1,3 +1,4 @@
+import gleam/bool
 import gleam/dict
 import gleam/list
 
@@ -36,4 +37,12 @@ pub fn merge_to_dict(
     }
     dict.insert(acc, tuple.0, val)
   })
+}
+
+pub fn pad(list: List(a), default: a, target: Int) -> List(a) {
+  use <- bool.guard(target == 0, [])
+  case list {
+    [first, ..rest] -> list.append([first], pad(rest, default, target - 1))
+    [] -> list.append([default], pad([], default, target - 1))
+  }
 }
