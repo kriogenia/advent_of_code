@@ -9,22 +9,31 @@ import util/file
 
 const file: String = "input/day_11.txt"
 
+const out: String = "out"
+
+const svr: String = "svr"
+
+const you: String = "you"
+
 pub fn main() {
   echo "Part 1: " <> { part_1(file) |> int.to_string() }
-  // echo "Part 2: " <> { part_2(file) |> int.to_string() }
+  echo "Part 2: " <> { part_2(file) |> int.to_string() }
 }
 
 pub fn part_1(file: String) -> Int {
   let outputs = file |> file.read_lines |> list.map(parse) |> dict.from_list
   let initial_state =
-    State(to_explore: ["out"], counter: dict.from_list([#("out", 1)]))
+    State(to_explore: [out], counter: dict.from_list([#(out, 1)]))
 
   calculate_paths(outputs, initial_state)
 }
 
-// pub fn part_2(file: String) -> Int {
-//   todo
-// }
+pub fn part_2(file: String) -> Int {
+  let outputs = file |> file.read_lines |> list.map(parse) |> dict.from_list
+
+  let start = #(svr, dict.from_list([#(0, 1)]))
+  find_visiting_paths(outputs, [start] |> dict.from_list)
+}
 
 fn parse(line: String) -> #(String, Set(String)) {
   let assert Ok(#(key, paths)) = string.split_once(line, ": ")
@@ -81,8 +90,8 @@ fn calculate_paths(unexplored: Dict(String, Set(String)), state: State) -> Int {
 
   let #(to_explore, new_unexplored) = extract_to_explore(new_unexplored)
 
-  case dict.get(new_unexplored, "you") |> result.map(set.to_list) {
-    Error(_) -> dict.get(new_counter, "you") |> result.unwrap(-1)
+  case dict.get(new_unexplored, you) |> result.map(set.to_list) {
+    Error(_) -> dict.get(new_counter, you) |> result.unwrap(-1)
     _ ->
       calculate_paths(
         new_unexplored,
@@ -99,4 +108,70 @@ fn extract_to_explore(unexplored: List(#(String, Set(String)))) {
   let new_unexplored = dict.from_list(new_unexplored)
 
   #(to_explore, new_unexplored)
+}
+
+fn find_visiting_paths(
+  paths: Dict(String, Set(String)),
+  open_paths: Dict(String, Dict(Int, Int)),
+) -> Int {
+  let assert Ok(next_paths) =
+    open_paths
+    |> dict.to_list
+    |> list.map(expand_path(_, paths))
+    |> list.reduce(fn(a, b) { dict.combine(a, b, combine_paths) })
+
+  let len = next_paths |> dict.to_list |> list.length
+  case len, dict.get(next_paths, out) {
+    1, Ok(counts) -> dict.get(counts, 3) |> result.unwrap(0)
+    _, _ -> find_visiting_paths(paths, next_paths)
+  }
+}
+
+fn expand_path(
+  from: #(String, Dict(Int, Int)),
+  paths: Dict(String, Set(String)),
+) -> Dict(String, Dict(Int, Int)) {
+  let #(device, counts) = from
+
+  case dict.get(paths, device) {
+    Ok(x) -> {
+      x
+      |> set.to_list
+      |> list.map(fn(device) {
+        let next =
+          counts
+          |> dict.to_list
+          |> list.map(fn(x) {
+            #(int.bitwise_or(x.0, check_passed(device)), x.1)
+          })
+          |> dict.from_list
+        #(device, next)
+      })
+    }
+    Error(_) -> [from]
+  }
+  |> dict.from_list
+}
+
+fn combine_paths(left: Dict(Int, Int), right: Dict(Int, Int)) {
+  // Removing 0 mask paths when there's non-zero paths should be an optimization
+  // but as we are dealing with an immutable lang and we need to copy the whole dict
+  // it is actually fairly slower. Pretty sure that mutable dict would be faster
+  //
+  // let new_dict = dict.combine(left, right, int.add)
+  // case new_dict |> dict.to_list |> list.any(fn(x) { x.0 > 0 }) {
+  //   True -> dict.drop(new_dict, [0])
+  //   False -> new_dict
+  // }
+
+  dict.combine(left, right, int.add)
+}
+
+// Maps required devices to a mask
+fn check_passed(key: String) -> Int {
+  case key {
+    "dac" -> 1
+    "fft" -> 2
+    _ -> 0
+  }
 }

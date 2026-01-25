@@ -30,9 +30,9 @@ gleam run -m day_01
 | [Day 8](https://adventofcode.com/2025/day/8) | ⭐ | ⭐ |
 | [Day 9](https://adventofcode.com/2025/day/9) | ⭐ |    |
 | [Day 10](https://adventofcode.com/2025/day/10) | ⭐ |    |
-| [Day 11](https://adventofcode.com/2025/day/11) | ⭐ |    |
+| [Day 11](https://adventofcode.com/2025/day/11) | ⭐ | ⭐ |
 
-**Total**: 19/24 ⭐
+**Total**: 20/24 ⭐
 
 
 ## Afterthoughts
@@ -52,4 +52,5 @@ I thought I had a good idea that worked for the test but it didn't for my input 
 don't have the spirit to fight my input corner cases.
 - **Day 10**: <3 XOR. Quite happy with the reduction from 44s to 8s I got implementing breadth
 first search for the first five levels too. Giving in part 2 too tho.
-- **Day 11**: First time I'm not happy with how readable the code is, but nice solution.
+- **Day 11**: I love when I think of multiple solutions and the parts allow me to explore
+both. Here I went starting from the back and the front, both really fast options.
