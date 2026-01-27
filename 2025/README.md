@@ -31,8 +31,9 @@ gleam run -m day_01
 | [Day 9](https://adventofcode.com/2025/day/9) | ⭐ |    |
 | [Day 10](https://adventofcode.com/2025/day/10) | ⭐ |    |
 | [Day 11](https://adventofcode.com/2025/day/11) | ⭐ | ⭐ |
+| [Day 12](https://adventofcode.com/2025/day/12) | ⭐ |    |
 
-**Total**: 20/24 ⭐
+**Total**: 21/24 ⭐
 
 
 ## Afterthoughts
@@ -54,3 +55,5 @@ don't have the spirit to fight my input corner cases.
 first search for the first five levels too. Giving in part 2 too tho.
 - **Day 11**: I love when I think of multiple solutions and the parts allow me to explore
 both. Here I went starting from the back and the front, both really fast options.
+- **Day 12**: First time where I just concede to having the lucky input and not even
+completing the example.
