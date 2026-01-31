@@ -1,4 +1,4 @@
-from .common import lines
+from .common import read_lines
 
 INPUT = "input/day_02.txt"
 
@@ -40,15 +40,9 @@ class BSub:
 
 
 def run(filename: str, submarine: ASub | BSub):
-    commands = {
-        "forward": lambda pos, n: pos.forward(n),
-        "up": lambda pos, n: pos.up(n),
-        "down": lambda pos, n: pos.down(n),
-    }
-
-    for line in lines(filename):
+    for line in read_lines(filename):
         [direction, movement] = line.split(" ")
-        commands[direction](submarine, int(movement))
+        submarine.__getattribute__(direction)(int(movement))
 
     return submarine.result()
 

@@ -10,31 +10,31 @@ STEPS = 10
 template = list()
 template_code = f.readline().strip()
 for char in template_code:
-	template.append(char)
+    template.append(char)
 
-f.readline()	# ignore empty line
+f.readline()  # ignore empty line
 
 # store steps
 rules = dict()
 for line in f:
-	[left, *_, right] = line.strip().split(" ")
-	rules[(left[0], left[1])] = right
+    [left, *_, right] = line.strip().split(" ")
+    rules[(left[0], left[1])] = right
 f.close()
 
 # iterate applying pairs
 for _ in range(STEPS):
-	next = list()
-	for i in range(len(template)):
-		next.append(template[i])
-		if i < len(template) - 1:
-			new =  rules[(template[i], template[i + 1])]
-			if new != None:
-				next.append(new)
-	template = next
+    next = list()
+    for i in range(len(template)):
+        next.append(template[i])
+        if i < len(template) - 1:
+            new = rules[(template[i], template[i + 1])]
+            if new != None:
+                next.append(new)
+    template = next
 
 counts = dict()
 for element in template:
-  counts[element] = counts.get(element, 0) + 1
+    counts[element] = counts.get(element, 0) + 1
 print(counts)
 
 result = max(counts.values()) - min(counts.values())

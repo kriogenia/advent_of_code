@@ -8,3 +8,6 @@ run day:
 # Runs the whole tests suite
 test: _install
   uv run pytest
+
+format:
+  uv format

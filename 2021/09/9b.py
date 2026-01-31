@@ -17,17 +17,17 @@ candidates = [point for point in candidates if point.value < 9]
 basins = []
 
 while len(candidates) > 0:
-	candidate = candidates[0]
-	basin = candidate.travel()
-	for point in basin:
-		candidates.remove(point)
-	basins.append(basin)
+    candidate = candidates[0]
+    basin = candidate.travel()
+    for point in basin:
+        candidates.remove(point)
+    basins.append(basin)
 
 sizes = [len(basin) for basin in basins]
-sizes.sort(reverse = True)
+sizes.sort(reverse=True)
 
 solution = 1
-for i in range(0,3):
-	solution *= sizes[i]
-	
-print(f'The sizes of the basins is {solution}')
+for i in range(0, 3):
+    solution *= sizes[i]
+
+print(f"The sizes of the basins is {solution}")

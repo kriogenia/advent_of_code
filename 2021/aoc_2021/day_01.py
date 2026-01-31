@@ -1,6 +1,6 @@
 import sys
 
-from .common import lines
+from .common import read_lines
 
 INPUT = "input/day_01.txt"
 
@@ -9,7 +9,7 @@ def part_a(filename: str = INPUT):
     counter = 0
     prev = sys.maxsize  # Big enough value to ignore first
 
-    for line in lines(filename):
+    for line in read_lines(filename):
         new = int(line)
         if new > prev:
             counter += 1
@@ -26,7 +26,7 @@ def part_b(filename: str = INPUT):
     prev = sys.maxsize
     last = [BIG, BIG, BIG]  # could have been a fifo but this is better
 
-    for i, line in enumerate(lines(filename)):
+    for i, line in enumerate(read_lines(filename)):
         last[i % len(last)] = int(line)
         new = sum(last)
 

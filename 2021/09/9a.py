@@ -13,10 +13,10 @@ check_lines(lines)
 # Transpose the matrix
 transposed = [[lines[j][i] for j in range(len(lines))] for i in range(len(lines[0]))]
 
-#Check horizontal neighbours of the transposed (original, verticals)
+# Check horizontal neighbours of the transposed (original, verticals)
 check_lines(transposed)
 
 # Flat the matrix and transform the points to their risks
 risk = [point.value + 1 for line in lines for point in line if point.low_point]
 
-print(f'The total risk is {sum(risk)}')
+print(f"The total risk is {sum(risk)}")

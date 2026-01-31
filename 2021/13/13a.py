@@ -21,12 +21,12 @@ for line in f:
 fold_line = int(fold_line)
 
 if fold_axis == "y":
-    for (x, y) in coordinates:
+    for x, y in coordinates:
         if y > fold_line:
             coordinates.append((x, fold_line - (y - fold_line)))
     result = set(filter(lambda xy: xy[1] < fold_line, coordinates))
 else:
-    for (x, y) in coordinates:
+    for x, y in coordinates:
         if x > fold_line:
             coordinates.append((fold_line - (x - fold_line), y))
         result = set(filter(lambda xy: xy[0] < fold_line, coordinates))
