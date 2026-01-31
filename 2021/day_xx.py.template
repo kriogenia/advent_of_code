@@ -1,4 +1,4 @@
-from .common import lines
+from .common import read_lines
 
 INPUT = "input/day_xx.txt"
 

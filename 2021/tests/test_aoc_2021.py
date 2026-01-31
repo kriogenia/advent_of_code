@@ -24,3 +24,10 @@ def test_day_04():
 
     assert day_04.part_a("examples/day_04.txt") == 4512
     assert day_04.part_b("examples/day_04.txt") == 1924
+
+
+def test_day_05():
+    from aoc_2021 import day_05
+
+    assert day_05.part_a("examples/day_05.txt") == 5
+    assert day_05.part_b("examples/day_05.txt") == 12
