@@ -4,7 +4,7 @@ Personal solutions to the [2025 Advent of Code](https://adventofcode.com/2025) u
 This will be my first contact with this language.
 
 Each day is resolved in its own file inside `src` and runs
-the related `input/day<day>.txt` file to resolve the problem.
+the related `input/day_<day>.txt` file to resolve the problem.
 It also contains a test for every example that can be checked
 with `gleam test`.
 
@@ -33,7 +33,7 @@ gleam run -m day_01
 | [Day 11](https://adventofcode.com/2025/day/11) | ⭐ | ⭐ |
 | [Day 12](https://adventofcode.com/2025/day/12) | ⭐ |    |
 
-**Total**: 21/24 ⭐
+**Total**: 21/23 ⭐
 
 
 ## Afterthoughts

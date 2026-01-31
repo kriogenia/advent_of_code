@@ -30,8 +30,8 @@ sometimes a few afterthoughts of my journey throughout the challenges.
 ## Stats
 
 * **Years**: 5
-* **Total**: 106/224 ⭐
-* **Max**: Gleam 2025 (0.88%)
+* **Total**: 106/223 ⭐
+* **Max**: Gleam 2025 (0.91%)
 * **Min**: Typescript 2023 (0.22%)
-* **Average**: 0.51%
+* **Average**: 0.52%
 * **Median**: 0.58%

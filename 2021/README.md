@@ -1,22 +1,17 @@
 # Advent of Code 2021
 
-Personal solutions to the [2021 Advent of Code](https://adventofcode.com/2021) using Python 3.10.
-Each day is divided into its own folder and can contain one file
-for the solution with the number of the day (`<day>.py`) or two,
-one for each problem of the day (`<day>a.py` and `<day>b.py`).
-In some cases a `util.py` is also located in the folder to share
-common code between both problems.
+Personal solutions to the [2021 Advent of Code](https://adventofcode.com/2021) using Python 3.10. Each day is done in its
+own fail `aoc_2021/day_<day>.py` an can be run via `uv run python -m aoc_2021.day_<day>` (in case that you have `uv`, you
+are free to use your favourite flavour), once its input file is placed as `input/day_<day>.txt`.
 
-In order to run these problems you need to locate the problem file
-in the day folder with the name `input.txt` and just run the Python
-script. For example:
+All the examples are also completed as tests and can be checked with:
 
-```shell
-python 01/01a.py
+```
+uv pip install -e .
+uv run pytest
 ```
 
-No dependency is ever used so a simple Python 3.10 or later in the
-environment is enough to try all the solutions.
+No dependency is ever used so a simple Python 3.10 or later in the environment is enough to try all the solutions.
 
 
 ## Completion

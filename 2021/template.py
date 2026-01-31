@@ -1,0 +1,16 @@
+from .common import lines
+
+INPUT = "input/day_xx.txt"
+
+
+def part_a(filename: str = INPUT):
+    raise NotImplementedError("TODO")
+
+
+def part_b(filename: str = INPUT):
+    raise NotImplementedError("TODO")
+
+
+if __name__ == "__main__":
+    print(f"Part A: {part_a()}")
+    print(f"Part B: {part_b()}")
