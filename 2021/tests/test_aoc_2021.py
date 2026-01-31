@@ -45,3 +45,10 @@ def test_day_07():
 
     assert day_07.part_a("examples/day_07.txt") == 37
     assert day_07.part_b("examples/day_07.txt") == 168
+
+
+def test_day_08():
+    from aoc_2021 import day_08
+
+    assert day_08.part_a("examples/day_08.txt") == 26
+    # assert day_08.part_b("examples/day_08.txt") == 61229

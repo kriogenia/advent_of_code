@@ -16,10 +16,10 @@ def to_base_10(bit_array: list[int], power_of_2=1):
 def part_a(filename: str = INPUT):
     lines = list(read_lines(filename))
 
-    bit_count = [0] * (len(lines[0]) - 1)
+    bit_count = [0] * len(lines[0])
 
-    for line in read_lines(filename):
-        for bit_pos in range(0, len(line) - 1):
+    for line in lines:
+        for bit_pos in range(len(line) - 1):
             # Adding the bit is like counting the 1s
             bit_count[bit_pos] += int(line[bit_pos])
 
@@ -43,7 +43,7 @@ def filter_bit(lines: list[str], mapper: Callable[[str], str], pos: int = 0) -> 
 
 
 def part_b(filename: str = INPUT):
-    lines = [line.rstrip() for line in read_lines(filename)]
+    lines = list(read_lines(filename))
 
     def to_array(bit_str: str):
         return [int(c) for c in bit_str]

@@ -11,4 +11,4 @@ def input(filename: str) -> TextIOWrapper:
 def read_lines(filename: str) -> Generator[str, None, None]:
     with input(filename) as f:
         for line in f:
-            yield line
+            yield line.rstrip()
