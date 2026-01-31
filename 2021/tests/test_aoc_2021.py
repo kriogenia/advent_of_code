@@ -51,4 +51,4 @@ def test_day_08():
     from aoc_2021 import day_08
 
     assert day_08.part_a("examples/day_08.txt") == 26
-    # assert day_08.part_b("examples/day_08.txt") == 61229
+    assert day_08.part_b("examples/day_08.txt") == 61229

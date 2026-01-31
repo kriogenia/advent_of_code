@@ -36,7 +36,7 @@ just test   # to run all tests
 | [Day 5](https://adventofcode.com/2021/day/5) | ⭐ | ⭐ |
 | [Day 6](https://adventofcode.com/2021/day/6) | ⭐ | ⭐ |
 | [Day 7](https://adventofcode.com/2021/day/7) | ⭐ | ⭐ |
-| [Day 8](https://adventofcode.com/2021/day/8) | ⭐ |    |
+| [Day 8](https://adventofcode.com/2021/day/8) | ⭐ | ⭐ |
 | [Day 9](https://adventofcode.com/2021/day/9) | ⭐ | ⭐ |
 | [Day 10](https://adventofcode.com/2021/day/10) | ⭐ | ⭐ |
 | [Day 11](https://adventofcode.com/2021/day/11) | ⭐ | ⭐ |
@@ -45,7 +45,7 @@ just test   # to run all tests
 | [Day 14](https://adventofcode.com/2021/day/14) | ⭐ | ⭐ |
 | [Day 15](https://adventofcode.com/2021/day/15) | ⭐ | ⭐ |
 
-**Total**: 29/50 ⭐
+**Total**: 30/50 ⭐
 
 
 
@@ -55,3 +55,4 @@ just test   # to run all tests
 - I'm not a fan of `__getattribute__` but this is inputs like the one in **Day 02** are the kind of places where it is handy.
 - **Day 04**, the day that will always be known as they I used a for-else.
 - Taking the floor and ceil averages in **Day 07** to work with both the example and input seems like a hack, but getting the solution is what matters.
+- So I came back three years later to finish the second part of the **Day 08** and it was quite the different thing.
