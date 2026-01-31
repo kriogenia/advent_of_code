@@ -1,0 +1,10 @@
+_install:
+  uv pip install -e .
+
+# Runs the specified day
+run day:
+  uv run python -m aoc_2021.day_{{day}}
+
+# Runs the whole tests suite
+test: _install
+  uv run pytest
