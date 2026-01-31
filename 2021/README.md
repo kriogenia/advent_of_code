@@ -54,3 +54,4 @@ just test   # to run all tests
 - This didn't exist at first but I will take the chance to create them while migrating the whole thing.
 - I'm not a fan of `__getattribute__` but this is inputs like the one in **Day 02** are the kind of places where it is handy.
 - **Day 04**, the day that will always be known as they I used a for-else.
+- Taking the floor and ceil averages in **Day 07** to work with both the example and input seems like a hack, but getting the solution is what matters.
