@@ -1,4 +1,3 @@
-import gleam/bool
 import gleam/int
 import gleam/list
 import gleam/result
@@ -20,7 +19,6 @@ pub fn part_1(file: String) -> Int {
   |> result.unwrap(0)
 }
 
-// FIXME: passes the test but it's not the correct answer
 pub fn part_2(file: String) -> Int {
   let pairs = parse(file)
   let is_valid = cuts(_, pairs |> as_sides)
@@ -39,15 +37,18 @@ fn parse(file: String) -> List(Coordinate2) {
 }
 
 fn as_sides(pairs: List(Coordinate2)) -> List(#(Coordinate2, Coordinate2)) {
-  let assert Ok(first) = pairs |> list.first |> result.map(list.wrap)
-  pairs |> list.append(first) |> list.window_by_2
+  list.first(pairs)
+  |> result.map(list.wrap)
+  |> result.map(list.append(pairs, _))
+  |> result.unwrap([])
+  |> list.window_by_2
 }
 
 // Calculates the area of the rectangle, adding one to each dimension as it is the minimum
 fn area(pair: #(Coordinate2, Coordinate2)) -> Int {
   let #(left, right) = pair
-  int.absolute_value(left.x - right.x + 1)
-  * int.absolute_value(left.y - right.y + 1)
+  { int.absolute_value(left.x - right.x) + 1 }
+  * { int.absolute_value(left.y - right.y) + 1 }
 }
 
 // Instead of checking if the rectangle is inside, it should be enough
@@ -59,13 +60,12 @@ fn cuts(
   let area_boundaries = coordinates.boundaries(area)
 
   sides
-  |> list.any(fn(side) {
+  |> list.all(fn(side) {
     let side_boundaries = coordinates.boundaries(side)
 
-    side_boundaries.max_x > area_boundaries.min_x
-    && side_boundaries.min_x < area_boundaries.max_x
-    && side_boundaries.max_y > area_boundaries.min_y
-    && side_boundaries.min_y < area_boundaries.max_y
+    side_boundaries.max_x <= area_boundaries.min_x
+    || area_boundaries.max_x <= side_boundaries.min_x
+    || side_boundaries.max_y <= area_boundaries.min_y
+    || area_boundaries.max_y <= side_boundaries.min_y
   })
-  |> bool.negate
 }

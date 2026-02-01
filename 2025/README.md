@@ -28,12 +28,12 @@ gleam run -m day_01
 | [Day 6](https://adventofcode.com/2025/day/6) | ⭐ | ⭐ |
 | [Day 7](https://adventofcode.com/2025/day/7) | ⭐ | ⭐ |
 | [Day 8](https://adventofcode.com/2025/day/8) | ⭐ | ⭐ |
-| [Day 9](https://adventofcode.com/2025/day/9) | ⭐ |    |
+| [Day 9](https://adventofcode.com/2025/day/9) | ⭐ | ⭐ |
 | [Day 10](https://adventofcode.com/2025/day/10) | ⭐ |    |
 | [Day 11](https://adventofcode.com/2025/day/11) | ⭐ | ⭐ |
 | [Day 12](https://adventofcode.com/2025/day/12) | ⭐ |    |
 
-**Total**: 21/23 ⭐
+**Total**: 22/23 ⭐
 
 
 ## Afterthoughts
