@@ -5,7 +5,7 @@ excluded_dirs = ["templates", ".git"]
 
 day_template = "[Day {day}](https://adventofcode.com/{year}/day/{day})"
 img_template = '<img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{icon}/{icon}-original.svg" />'
-badge_template = "[![{year}](https://img.shields.io/badge/⭐%20{stars}-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/{year})"
+badge_template = "[![{year}](https://img.shields.io/badge/⭐%20{stars}/{max}-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/{year})"
 
 
 def read_config(file):
@@ -55,7 +55,9 @@ def write_years_table(file, years):
         return f"**{config['title']}**"
 
     def stars(year, config):
-        return badge_template.format(year=year, stars=sum(config["days"]))
+        return badge_template.format(
+            year=year, stars=sum(config["days"]), max=config.get("max", 50)
+        )
 
     for mapping in [year, separator, image_link, name, stars]:
         transformed = [mapping(year, years[year]) for year in sorted_years]
