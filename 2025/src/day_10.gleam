@@ -5,6 +5,7 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
+import util/collections
 import util/file
 import util/math
 import util/parse
@@ -38,18 +39,19 @@ pub fn part_2(file: String) -> Int {
   |> list.map(parse)
   |> list.map(fn(machine) {
     let len = { machine.lights |> string.length() } - 3
-    let cache =
-      machine.schematics
-      |> list.map(parse_binary_array(_, len))
-      |> cache_combinations
-
-    found_min_combination(machine.joltage, cache)
+    let presses = generate_presses(machine.schematics, len)
+    #(machine.joltage, presses)
   })
-  |> list.fold(0, int.add)
+  |> list.map(find_mininum)
+  |> int.sum
 }
 
 type Machine {
   Machine(lights: String, schematics: List(List(Int)), joltage: List(Int))
+}
+
+type Presses {
+  Presses(mask: Int, count: Int, state: Dict(Int, Int))
 }
 
 fn drop_guards(str: String) -> String {
@@ -106,14 +108,29 @@ pub fn parse_binary(schematics: List(Int)) -> Int {
   |> result.unwrap(0)
 }
 
-fn parse_binary_array(positions: List(Int), len: Int) {
-  list.range(0, len)
-  |> list.map(fn(x) {
-    case list.contains(positions, x) {
-      True -> 1
-      False -> 0
-    }
+fn parse_reverse_binary(schematics: List(Int), width: Int) -> Int {
+  schematics
+  |> list.map(fn(s) { width - s })
+  |> parse_binary
+}
+
+fn generate_presses(schematics: List(List(Int)), len: Int) -> List(Presses) {
+  list.range(0, len + 1)
+  |> list.flat_map(list.combinations(schematics, _))
+  |> list.map(fn(c) {
+    let mask = c |> list.map(parse_reverse_binary(_, len)) |> xor
+    let counts = c |> list.flatten() |> collections.count()
+
+    Presses(mask, list.length(c), counts)
   })
+}
+
+pub fn binary_to_decimal(bits: List(Int)) -> Int {
+  case bits {
+    [] -> 0
+    [single] -> single
+    [first, ..rest] -> first + { 2 * binary_to_decimal(rest) }
+  }
 }
 
 type Candidate {
@@ -132,17 +149,6 @@ fn expand(candidate: Candidate) -> List(Candidate) {
 
 fn xor(list: List(Int)) -> Int {
   list.fold(list, 0, int.bitwise_exclusive_or)
-}
-
-fn reduce_binaries(
-  list: List(List(Int)),
-  function: fn(Int, Int) -> Int,
-) -> List(Int) {
-  list.reduce(list, fn(acc, c) {
-    list.zip(acc, c)
-    |> list.map(fn(x) { function(x.0, x.1) })
-  })
-  |> result.unwrap([])
 }
 
 // Starts with breadth first search for valid solutions.
@@ -182,47 +188,32 @@ fn depth_search(
   }
 }
 
-pub fn cache_combinations(
-  schematic: List(List(Int)),
-) -> Dict(List(Int), List(#(List(Int), Int))) {
-  list.range(0, list.length(schematic))
-  |> list.flat_map(fn(len) { list.combinations(schematic, len) })
-  |> list.fold(dict.new(), fn(acc, c) {
-    let simple = reduce_binaries(c, int.bitwise_exclusive_or)
-    let state = reduce_binaries(c, int.add)
-    let len = list.length(c)
+fn find_mininum(current: #(List(Int), List(Presses))) -> Int {
+  let #(joltage, presses) = current
 
-    let new_list = case dict.get(acc, simple) {
-      Ok(list) -> {
-        list.prepend(list, #(state, len))
-      }
-      Error(_) -> {
-        [#(state, len)]
-      }
-    }
+  use <- bool.guard(joltage |> list.any(fn(x) { x < 0 }), 1_000_001)
+  use <- bool.guard(int.sum(joltage) == 0, 0)
 
-    dict.insert(acc, simple, new_list)
+  let odd =
+    joltage
+    |> list.map(math.mod(_, 2))
+    |> list.reverse
+    |> binary_to_decimal
+
+  let sets_to_even = fn(press: Presses) {
+    { press.mask |> int.bitwise_exclusive_or(odd) } == 0
+  }
+
+  presses
+  |> list.filter(sets_to_even)
+  |> list.fold(1_000_000, fn(prev, press) {
+    let next = substract(joltage, press.state)
+    int.min(prev, press.count + { 2 * find_mininum(#(next, presses)) })
   })
 }
 
-pub fn found_min_combination(
-  joltage: List(Int),
-  cache: Dict(List(Int), List(#(List(Int), Int))),
-) -> Int {
-  use <- bool.guard(list.all(joltage, fn(i) { i == 0 }), 0)
-
-  let simple = list.map(joltage, math.mod(_, 2))
-
-  dict.get(cache, simple)
-  |> result.unwrap([])
-  |> list.filter(fn(entry) {
-    list.zip(joltage, entry.0) |> list.all(fn(x) { x.0 >= x.1 })
-  })
-  |> list.map(fn(entry) {
-    #(reduce_binaries([joltage, entry.0], fn(a, b) { { a - b } / 2 }), entry.1)
-  })
-  |> list.fold(10_000, fn(current, tuple) {
-    let #(new_joltage, cost) = tuple
-    int.min(current, cost + 2 * found_min_combination(new_joltage, cache))
-  })
+fn substract(joltage: List(Int), state: Dict(Int, Int)) -> List(Int) {
+  joltage
+  |> list.index_map(fn(x, i) { x - { dict.get(state, i) |> result.unwrap(0) } })
+  |> list.map(math.div(_, 2))
 }

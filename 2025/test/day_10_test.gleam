@@ -14,3 +14,9 @@ pub fn xor_test() {
   assert [17, 7, 30] |> list.reduce(int.bitwise_exclusive_or) == Ok(8)
   assert [25, 55] |> list.reduce(int.bitwise_exclusive_or) == Ok(46)
 }
+
+pub fn binary_to_decimal_test() {
+  assert [1, 1, 0, 1] |> day_10.binary_to_decimal == 11
+  assert [1, 1, 0, 1, 0] |> day_10.binary_to_decimal == 11
+  assert [0, 1, 1, 1, 0, 1] |> day_10.binary_to_decimal == 46
+}

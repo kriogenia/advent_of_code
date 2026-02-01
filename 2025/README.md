@@ -29,11 +29,11 @@ gleam run -m day_01
 | [Day 7](https://adventofcode.com/2025/day/7) | ⭐ | ⭐ |
 | [Day 8](https://adventofcode.com/2025/day/8) | ⭐ | ⭐ |
 | [Day 9](https://adventofcode.com/2025/day/9) | ⭐ | ⭐ |
-| [Day 10](https://adventofcode.com/2025/day/10) | ⭐ |    |
+| [Day 10](https://adventofcode.com/2025/day/10) | ⭐ | ⭐ |
 | [Day 11](https://adventofcode.com/2025/day/11) | ⭐ | ⭐ |
-| [Day 12](https://adventofcode.com/2025/day/12) | ⭐ |    |
+| [Day 12](https://adventofcode.com/2025/day/12) | ⭐ | ⭐ |
 
-**Total**: 22/23 ⭐
+**Total**: 24/24 ⭐
 
 
 ## Afterthoughts
@@ -49,10 +49,9 @@ the parsing and serialization back and forth.
 - **Day 07**: Set operations and dict optimizations, the real good shit.
 - **Day 08**: 14 piped functions babeeee.
 - **Day 09**: Part one was... extremely trivial? And then part 2 was my first skip this year.
-I thought I had a good idea that worked for the test but it didn't for my input and I
-don't have the spirit to fight my input corner cases.
+Fixed later tho.
 - **Day 10**: <3 XOR. Quite happy with the reduction from 44s to 8s I got implementing breadth
-first search for the first five levels too. Giving in part 2 too tho.
+first search for the first five levels too. Hopefully, u/tenthmascot save my part 2.
 - **Day 11**: I love when I think of multiple solutions and the parts allow me to explore
 both. Here I went starting from the back and the front, both really fast options.
 - **Day 12**: First time where I just concede to having the lucky input and not even

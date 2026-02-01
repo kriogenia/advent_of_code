@@ -1,5 +1,5 @@
 import gleam/bool
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/list
 
 pub fn index_of(list: List(a), target: a) -> Result(Int, Nil) {
@@ -45,4 +45,14 @@ pub fn pad(list: List(a), default: a, target: Int) -> List(a) {
     [first, ..rest] -> list.append([first], pad(rest, default, target - 1))
     [] -> list.append([default], pad([], default, target - 1))
   }
+}
+
+pub fn count(items: List(a)) -> Dict(a, Int) {
+  items
+  |> list.fold(dict.new(), fn(dic, item) {
+    case dict.get(dic, item) {
+      Ok(exists) -> dict.insert(dic, item, exists + 1)
+      Error(_) -> dict.insert(dic, item, 1)
+    }
+  })
 }
