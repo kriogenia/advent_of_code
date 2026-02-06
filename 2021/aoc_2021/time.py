@@ -4,11 +4,11 @@ import importlib
 
 def format_duration(seconds: float) -> str:
     if seconds >= 1:
-        return f"{seconds:7.3f}s"
+        return f"{seconds:>7.3f}s"
     elif seconds >= 1e-3:
-        return f"{seconds * 1e3:7.3f}ms"
+        return f"{seconds * 1e3:>7.3f}ms"
     else:
-        return f"{seconds * 1e6:7.3f}µs"
+        return f"{seconds * 1e6:>7.3f}µs"
 
 
 def time_fn(fn):
