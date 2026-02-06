@@ -3,7 +3,11 @@ _install:
 
 # Runs the specified day
 run day:
-  uv run python -m aoc_2021.day_{{day}}
+  @uv run python -m aoc_2021.day_{{day}}
+
+# Runs the time measurements
+time:
+  @uv run python -m aoc_2021.time
 
 # Runs the whole tests suite
 test: _install
