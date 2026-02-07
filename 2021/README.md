@@ -54,19 +54,19 @@ just time   # to run the time suite
 
 |  Day  |  Part A   |  Part B   |
 |-------|-----------|-----------|
-|     1 | 463.685µs | 667.480µs |
-|     2 | 602.167µs | 603.048µs |
-|     3 |   1.383ms | 538.796µs |
-|     4 |   5.555ms |  13.010ms |
-|     5 |  42.722ms |  60.764ms |
-|     6 | 166.568ms | 581.781µs |
-|     7 |   3.464ms |  12.959ms |
-|     8 | 166.389µs |   3.173ms |
-|     9 |   6.660ms |  18.979ms |
-|    10 | 639.290µs | 626.738µs |
-|    11 |   2.598ms |   8.549ms |
-|    12 |  11.549ms | 312.520ms |
-|    13 |           |           |
+|     1 | 428.236µs | 665.348µs |
+|     2 | 566.189µs | 588.140µs |
+|     3 |   1.410ms | 499.491µs |
+|     4 |   4.683ms |  10.111ms |
+|     5 |  32.839ms |  60.698ms |
+|     6 | 161.100ms | 549.377µs |
+|     7 |   3.452ms |  13.166ms |
+|     8 | 181.656µs |   3.159ms |
+|     9 |   8.349ms |  20.585ms |
+|    10 | 639.318µs | 638.767µs |
+|    11 |   2.585ms |   8.670ms |
+|    12 |  12.177ms | 320.021ms |
+|    13 | 492.198µs |   1.447ms |
 |    14 |           |           |
 |    15 |           |           |
 |    16 |           |           |
@@ -79,7 +79,7 @@ just time   # to run the time suite
 |    23 |           |           |
 |    24 |           |           |
 |    25 |           |           |
-| Total | 242.371ms | 432.971ms |
+| Total | 228.903ms | 440.798ms |
 
 ## Afterthoughts
 
@@ -89,3 +89,4 @@ just time   # to run the time suite
 - Taking the floor and ceil averages in **Day 07** to work with both the example and input seems like a hack, but getting the solution is what matters.
 - So I came back three years later to finish the second part of the **Day 08** and it was quite the different thing.
 - First use of `@functools.cache` in **Day 10**, I'm a pro.
+- On one side the way to get the solution of the **Day 13 Part B** is amazing, but on the other hand it breaks my whole structure.

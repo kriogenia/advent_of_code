@@ -7,7 +7,7 @@ run day:
 
 # Runs the time measurements
 time:
-  @uv run python -m aoc_2021.time
+  @uv run python -m aoc_2021.time 2>/dev/null
 
 # Runs the whole tests suite
 test: _install
