@@ -95,3 +95,10 @@ def test_day_14():
 
     assert day_14.part_a("examples/day_14.txt") == 1588
     assert day_14.part_b("examples/day_14.txt") == 2188189693529
+
+
+def test_day_15():
+    from aoc_2021 import day_15
+
+    assert day_15.part_a("examples/day_15.txt") == 40
+    assert day_15.part_b("examples/day_15.txt") == 315
