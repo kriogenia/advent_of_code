@@ -15,3 +15,7 @@ test: _install
 
 format:
   uv format
+
+clean:
+  uv clean
+  rm -rf .ruff_cache
