@@ -42,8 +42,9 @@ just time   # to run the time suite
 | [Day 13](https://adventofcode.com/2021/day/13) | ⭐ | ⭐ |
 | [Day 14](https://adventofcode.com/2021/day/14) | ⭐ | ⭐ |
 | [Day 15](https://adventofcode.com/2021/day/15) | ⭐ | ⭐ |
+| [Day 16](https://adventofcode.com/2021/day/16) | ⭐ |    |
 
-**Total**: 30/50 ⭐
+**Total**: 31/50 ⭐
 
 
 
@@ -88,3 +89,4 @@ just time   # to run the time suite
 - First use of `@functools.cache` in **Day 10**, I'm a pro.
 - On one side the way to get the solution of the **Day 13 Part B** is amazing, but on the other hand it breaks my whole structure.
 - Tried to come up with a new, shiny and convoluted solution for **Day 14** and I did it worse. Kudos to my past self of 5 years ago.
+- I Love to implement state machines like in **Day 16**, but this one was a bit of a pain to debug.
