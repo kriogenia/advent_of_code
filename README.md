@@ -21,7 +21,7 @@ learn new ones.
 | :----: | :----: | :----: | :----: | :----: |
 | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/zig/zig-original.svg" /> | <img width="100px" height="100px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gleam/gleam-original.svg" /> |
 | **Python** | **Rust** | **Typescript** | **Zig** | **Gleam** |
-| [![2021](https://img.shields.io/badge/⭐%2031/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2021) | [![2022](https://img.shields.io/badge/⭐%2030/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2022) | [![2023](https://img.shields.io/badge/⭐%2011/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2023) | [![2024](https://img.shields.io/badge/⭐%2015/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2024) | [![2025](https://img.shields.io/badge/⭐%2024/24-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2025) |
+| [![2021](https://img.shields.io/badge/⭐%2032/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2021) | [![2022](https://img.shields.io/badge/⭐%2030/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2022) | [![2023](https://img.shields.io/badge/⭐%2011/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2023) | [![2024](https://img.shields.io/badge/⭐%2015/50-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2024) | [![2025](https://img.shields.io/badge/⭐%2024/24-gray?logo=adventofcode&labelColor=black)](https://adventofcode.com/2025) |
 
 Inside the folder of each year you can find a different README.md with the
 information about the structure used, how it can be run, acknowledgments and
@@ -30,8 +30,8 @@ sometimes a few afterthoughts of my journey throughout the challenges.
 ## Stats
 
 * **Years**: 5
-* **Total**: 111/224 ⭐
-* **Max**: Gleam 2025 (1.00%)
-* **Min**: Typescript 2023 (0.22%)
-* **Average**: 0.55%
-* **Median**: 0.60%
+* **Total**: 112/224 ⭐
+* **Max**: Gleam 2025 (100%)
+* **Min**: Typescript 2023 (22.00%)
+* **Average**: 55.20%
+* **Median**: 60.00%

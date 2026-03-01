@@ -97,10 +97,10 @@ def write_stats(file, years):
 
     file.write(f"* **Years**: {n}\n")
     file.write(f"* **Total**: {achieved}/{total} ⭐\n")
-    file.write(f"* **Max**: {years[max[0]]['title']} {max[0]} ({max[1]:.2f}%)\n")
-    file.write(f"* **Min**: {years[min[0]]['title']} {min[0]} ({min[1]:.2f}%)\n")
-    file.write(f"* **Average**: {sum(percents) / n:.2f}%\n")
-    file.write(f"* **Median**: {median:.2f}%\n")
+    file.write(f"* **Max**: {years[max[0]]['title']} {max[0]} ({max[1] * 100:.0f}%)\n")
+    file.write(f"* **Min**: {years[min[0]]['title']} {min[0]} ({min[1] * 100:.2f}%)\n")
+    file.write(f"* **Average**: {sum(percents) / n * 100:.2f}%\n")
+    file.write(f"* **Median**: {median * 100:.2f}%\n")
 
 
 def generate_year_readme(year, template, max):

@@ -1,3 +1,6 @@
+from aoc_2021.common import read_lines
+
+
 def test_day_01():
     from aoc_2021 import day_01
 
@@ -107,7 +110,10 @@ def test_day_15():
 def test_day_16():
     from aoc_2021 import day_16
 
-    assert day_16.part_a("examples/day_16_a.txt") == 16
-    assert day_16.part_a("examples/day_16_b.txt") == 12
-    assert day_16.part_a("examples/day_16_c.txt") == 23
-    assert day_16.part_a("examples/day_16_d.txt") == 31
+    for sol, line in zip([16, 12, 23, 31], read_lines("examples/day_16_a.txt")):
+        assert day_16.run_a(line) == sol
+
+    for sol, line in zip(
+        [3, 54, 7, 9, 1, 0, 0, 1], read_lines("examples/day_16_b.txt")
+    ):
+        assert day_16.run_b(line) == sol
